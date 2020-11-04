@@ -5,7 +5,7 @@
 | ps -ef\|grep 进程名                    | 查看进程                                                     | ps -ef\|grep java                            |
 | tail -f 文件名                         | 查看文件详情                                                 | tail -f nohup.out                            |
 | nohup java -jar jar包 > nohup.out 2>&1 | jar包 部署命令                                               | nohup java -jar mahua.jar   > nohup.out 2>&1 |
-| kill -9 进程号                         | 杀 进程                                                      |                                              |
+| kill -9 进程号                         | 杀 进程, 不给反应时间的杀                                          |                                              |
 | find (查找范围) -name 文件名/文件夹名  | 查找文件                                                     | find home -name nginx<br>find -name nginx;   |
 | pwd                                    | 查看当前位置                                                 |                                              |
 | q                                      | 不保存退出                                                   |                                              |
@@ -13,7 +13,7 @@
 | q!                                     | 不保存, 强制退出                                             |                                              |
 | w                                      | 保存, 但不退出vi                                             |                                              |
 | w 文件名                               | 另存为另一个文件, 并不退出vi                                 |                                              |
-| su                                     | switch user                                                  |      |
+| su                                     | switch user                                                  | su root |
 | echo | 清除文件内容 | echo > 文件名 |
 |                                        |                                                              |                                              |
 |                                        |                                                              |                                              |
