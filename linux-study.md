@@ -1,5 +1,7 @@
 # 1. 一些命令
 
+
+
 | <span style="white-space: nowrap">命令 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp;</span> | <span style="white-space: nowrap">说明 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;</span> | <span style="white-space: nowrap">例子 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;</span> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | ps -ef\|grep 进程名                                          | 查看进程                                                     | ps -ef\|grep java                                            |
@@ -46,9 +48,6 @@
 |                                                              |                                                              |                                                              |
 
 
-
-
-
 # 2. 文件夹意义
 
 | 文件夹                  | 说明                                                         |
@@ -91,24 +90,7 @@
 | /proc | processes            | 进程                                                       |
 | etc   |                      |                                                            |
 | nohup | no hang up           | 不挂断                                                     |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
-|       |                      |                                                            |
+
 
 # apt安装后, 设置 java_home
 
