@@ -8,7 +8,7 @@
 | tail -f 文件名                                               | 查看文件详情                                                 | tail -f nohup.out                                            |
 | nohup java -jar jar包 > nohup.out 2>&1 &                     | jar包 部署命令 , jar包> 后面 有空格, 详见下方命令解释        | nohup java -jar mahua.jar   > nohup.out 2>&1 &               |
 | kill -9 进程号                                               | 杀 进程, 不给反应时间的杀                                    |                                                              |
-| find (查找范围) -name 文件名/文件夹名                        | 查找文件                                                     | find home -name nginx<br>find -name nginx;                   |
+| find (/查找范围) -name 文件名/文件夹名                       | 查找文件                                                     | find home -name nginx<br>find / -name nginx;                 |
 | pwd                                                          | 查看当前位置                                                 |                                                              |
 | q                                                            | 不保存退出                                                   |                                                              |
 | wq                                                           | 保存后退出                                                   |                                                              |
@@ -36,14 +36,16 @@
 | netstat -tunlp\|grep 端口号                                  | 查看端口号的占用进程                                         | netstat -tunlp\|grep 8080                                    |
 | firewall-cmd --list-ports                                    | 查看已经对外开放的端口                                       |                                                              |
 | firewall-cmd --zone=public --add-port=8080/tcp --permanent   | 添加开放对外的端口(8080)                                     |                                                              |
+| firewall-cmd --reload                                        |                                                              |                                                              |
+| firewall-cmd --zone=public --query-port=2228/tcp             |                                                              |                                                              |
 | firewall-cmd --zone= public--remove-port=80/tcp --permanent  | 删除端口配置                                                 |                                                              |
 | systemctl restart firewalld.service                          | 重启防火墙                                                   |                                                              |
 | date                                                         | 查看系统时间                                                 |                                                              |
 | timedatectl list-timezones                                   | centos7 列出所有时区                                         |                                                              |
 | timedatectl set-timezone Asia/Shanghai                       | centos7 修改时区为 上海                                      |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
+| ssh usr@ip                                                   | 连其他主机                                                   |                                                              |
+| sudo passwd root                                             | 修改root 密码                                                |                                                              |
+| mv 原文件名 修改后的文件名                                   | 修改文件名                                                   |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 
@@ -92,7 +94,14 @@
 | nohup | no hang up           | 不挂断                                                     |
 
 
-# apt安装后, 设置 java_home
+
+
+
+# 4. 经验
+
+
+
+## 1. apt安装后, 设置 java_home
 
 1. 看下是否被设置到环境变量：
 
@@ -126,9 +135,7 @@
 
 目前我的mysql 在 /usr/share/mysql
 
-
-
-# linux 部署项目
+## 2. linux 部署java项目
 
 不指定配置文件
 
@@ -168,34 +175,7 @@ classpath /
 
 
 
-# 命令解释
-
-1. nohup java -jar tientsineye.jar > tientsineye.out 2>&1 &
-
-| command                                   | describle                                                    |
-| ----------------------------------------- | ------------------------------------------------------------ |
-| nohup                                     | 守护进程                                                     |
-| java -Duser.timezone=GMT+8  -jar *.jar    | jar包启动, 使用 东八区区时, centos7 有这个问题, java 程序获取的时间 不对应 |
-| --spring.config.location=配置文件(带路径) | 指定jar包读取的外部的配置文件                                |
-| \>*.log                                   | 日志输出位置                                                 |
-| 2>&1 &                                    | 2>&1是将标准错误（2）重定向到标准输出（&1），标准输出（&1）再被重定向输入到*.log文件中。 |
-| &                                         | 守护进程(仅当前连接linux终端用户在线时，一旦该用户断开连接，项目将自动停止，因此需要使用nohup) |
-
-
-
-2. netstat -tunlp
-
-- -t (tcp) 仅显示tcp相关选项
-- -u (udp)仅显示udp相关选项
-- -n 拒绝显示别名，能显示数字的全部转化为数字
-- -l 仅列出在Listen(监听)的服务状态
-- -p 显示建立相关链接的程序名
-
-
-
-
-
-# nginx 配置详解
+## 3. nginx 配置详解
 
 
 
@@ -424,7 +404,6 @@ proxy_temp_file_write_size 256k;
 proxy_temp_path /data0/proxy_temp_dir;
 
 proxy_temp_path和proxy_cache_path指定的路径必须在同一分区
-
 
 proxy_cache_path /data0/proxy_cache_dir levels=1:2 keys_zone=cache_one:200m inactive=1d max_size=30g;
 \#设置内存缓存空间大小为200MB，1天没有被访问的内容自动清除，硬盘缓存空间大小为30GB。
@@ -899,3 +878,208 @@ $server_name请求到达的服务器名
 $server_port请求到达的服务器的端口号
 
 $uri等同于当前request中的URI，可不同于初始值，例如内部重定向时或使用index
+
+
+
+## 4. vi 后 查找功能
+
+格式:  "/查找内容" 
+
+
+
+## ⑤ centos7 redis 安装
+
+安装gcc依赖
+
+ **yum install -y gcc** 
+
+下载并解压安装包
+
+**wget http://download.redis.io/releases/redis-5.0.3.tar.gz**
+
+**tar -zxvf redis-5.0.3.tar.gz**
+
+cd切换到redis解压目录下，执行编译
+
+**cd redis-5.0.3**
+
+ **make**
+
+安装并指定安装目录
+
+**make install PREFIX=/usr/local/redis**
+
+从 redis 的源码目录中复制 redis.conf 到 redis 的安装目录
+
+ **cp /usr/local/redis-5.0.3/redis.conf /usr/local/redis/bin/**
+
+修改 redis.conf 文件，把 daemonize no 改为 daemonize yes
+
+**vi redis.conf**
+
+后台启动
+
+**./redis-server redis.conf**
+
+
+
+设置开机启动
+
+**vi /etc/systemd/system/redis.service**
+
+复制粘贴以下内容：
+
+```xml
+[Unit]
+Description=redis-server
+After=network.target
+[Service]
+Type=forking
+ExecStart=/usr/local/redis/bin/redis-server /usr/local/redis/bin/redis.conf
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target
+```
+
+注意：ExecStart配置成自己的路径 
+
+设置开机启动
+
+**systemctl daemon-reload**
+
+**systemctl start redis.service**
+
+**systemctl enable redis.service**
+
+
+
+服务操作命令
+
+systemctl start redis.service  #启动redis服务
+
+systemctl stop redis.service  #停止redis服务
+
+systemctl restart redis.service  #重新启动服务
+
+systemctl status redis.service  #查看服务当前状态
+
+systemctl enable redis.service  #设置开机自启动
+
+systemctl disable redis.service  #停止开机自启动
+
+
+
+# 5. 命令解释
+
+1. nohup java -jar tientsineye.jar > tientsineye.out 2>&1 &
+
+2. ```c
+   nohup java -jar *.jar --spring.config.location=config/application.properties >*.log&
+   ```
+
+| command                                   | describle                                                    |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| nohup                                     | 守护进程                                                     |
+| java -Duser.timezone=GMT+8  -jar *.jar    | jar包启动, 使用 东八区区时, centos7 有这个问题, java 程序获取的时间 不对应 |
+| --spring.config.location=配置文件(带路径) | 指定jar包读取的外部的配置文件                                |
+| \>*.log                                   | 日志输出位置                                                 |
+| 2>&1 &                                    | 2>&1是将标准错误（2）重定向到标准输出（&1），标准输出（&1）再被重定向输入到*.log文件中。 |
+| &                                         | 守护进程(仅当前连接linux终端用户在线时，一旦该用户断开连接，项目将自动停止，因此需要使用nohup) |
+
+
+
+2. netstat -tunlp
+
+- -t (tcp) 仅显示tcp相关选项
+- -u (udp)仅显示udp相关选项
+- -n 拒绝显示别名，能显示数字的全部转化为数字
+- -l 仅列出在Listen(监听)的服务状态
+- -p 显示建立相关链接的程序名
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 6. centos7 安装 postgresql
+
+1、安装rpm文件（可以到官网核定你的版本情况和路径，如果是11版，下面的都需要调整一下）
+
+```c
+yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+```
+
+
+
+2、安装客户端
+
+```c
+yum install postgresql10
+```
+
+
+
+3、安装服务端
+
+```c
+yum install postgresql10-server
+```
+
+
+
+4、初始化
+
+```c
+/usr/pgsql-10/bin/postgresql-10-setup initdb
+```
+
+
+
+5、设置自动启动并且启动postgresql服务
+
+```c
+systemctl enable postgresql-10
+systemctl start postgresql-10
+```
+
+
+
+
+
+**第二部分：创建用户和数据库**
+
+1、使用postgres用户登录（PostgresSQL安装后会自动创建postgres用户，无密码）
+
+```c
+su - postgres
+```
+
+
+
+2、登录postgresql数据库
+
+密码是 psql
+
+
+
+3、创建用户和数据库并授权
+
+```c
+create user test_user with password 'abc123';            // 创建用户
+create database test_db owner test_user;                 // 创建数据库
+grant all privileges on database test_db to test_user;   // 授权
+```
+
+
+
+4、退出psql（输入 \q 再按回车键即可)
+
+
+
