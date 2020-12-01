@@ -34,11 +34,16 @@
 | netstat                                                      | 查端口号                                                     |                                                              |
 | netstat -tunlp                                               | 用于显示tcp udp的端口和进程情况, 详见下方命令解释            |                                                              |
 | netstat -tunlp\|grep 端口号                                  | 查看端口号的占用进程                                         | netstat -tunlp\|grep 8080                                    |
-| firewall-cmd --list-ports                                    | 查看已经对外开放的端口                                       |                                                              |
+| firewall-cmd --zone=public  --list-ports                     | 查看已经对外开放的端口                                       |                                                              |
 | firewall-cmd --zone=public --add-port=8080/tcp --permanent   | 添加开放对外的端口(8080)                                     |                                                              |
-| firewall-cmd --reload                                        |                                                              |                                                              |
-| firewall-cmd --zone=public --query-port=2228/tcp             |                                                              |                                                              |
+| firewall-cmd --reload                                        | 重新载入一下防火墙设置，使设置生效                           |                                                              |
+| firewall-cmd --zone=public --query-port=2228/tcp             | 通过命令查看是否生效                                         |                                                              |
 | firewall-cmd --zone= public--remove-port=80/tcp --permanent  | 删除端口配置                                                 |                                                              |
+| firewall-cmd --zone=public --add-port=100-500/tcp --permanent | 批量开放100-500之间的端口                                    |                                                              |
+| firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="192.168.0.200" port protocol="tcp" port="80" reject" | 限制IP为192.168.0.200的地址禁止访问80端口, 如未生效可编辑文件, vi /etc/firewalld/zones/public.xml |                                                              |
+| firewall-cmd --permanent --remove-rich-rule =“xxxx”          | 解除被限制的192.168.0.200 (还不确定, 没实验过)               |                                                              |
+| firewall-cmd --zone=public --list-rich-rules                 | 查看 被限制的                                                |                                                              |
+| firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="10.0.0.0/24" port protocol="tcp" port="80" reject" | 限制10.0.0.0-10.0.0.255这一整个段的IP，禁止他们访问,其中10.0.0.0/24表示为从10.0.0.0这个IP开始,24代表子网掩码为255.255.255.0,共包含256个地址 |                                                              |
 | systemctl restart firewalld.service                          | 重启防火墙                                                   |                                                              |
 | date                                                         | 查看系统时间                                                 |                                                              |
 | timedatectl list-timezones                                   | centos7 列出所有时区                                         |                                                              |
@@ -1082,4 +1087,40 @@ grant all privileges on database test_db to test_user;   // 授权
 4、退出psql（输入 \q 再按回车键即可)
 
 
+
+
+
+# 7. 防火墙的一些
+
+
+
+man firewalld.richlanguage  查看防火墙说明文件
+
+
+
+firewall-cmd --zone=public  --list-ports  查看已经对外开放的端口   
+
+firewall-cmd --zone=public --add-port=8080/tcp --permanent  添加开放对外的端口(8080)    
+
+firewall-cmd --reload  重新载入一下防火墙设置，使设置生效    
+
+firewall-cmd --zone=public --query-port=2228/tcp  通过命令查看是否生效    
+
+firewall-cmd --zone= public--remove-port=80/tcp --permanent  删除端口配置    
+
+firewall-cmd --zone=public --add-port=100-500/tcp --permanent  批量开放100-500之间的端口  
+
+firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="192.168.0.200" port protocol="tcp" port="80" reject"  限制IP为192.168.0.200的地址禁止访问80端口, 如未生效可编辑文件, vi /etc/firewalld/zones/public.xml      
+
+解除被限制的192.168.0.200    
+
+firewall-cmd --zone=public --list-rich-rules  查看 被限制的   
+
+firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="10.0.0.0/24" port protocol="tcp" port="80" reject"  限制10.0.0.0-10.0.0.255这一整个段的IP，禁止他们访问,其中10.0.0.0/24表示为从10.0.0.0这个IP开始,24代表子网掩码为255.255.255.0,共包含256个地址    
+
+firewall-cmd --permanent --remove-rich-rule =“xxxx”  解除限制  
+
+firewall-cmd --permanent --remove-port=3306/tcp  删除原有的3306端口访问规则   
+
+firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address=" 192.168.1.100" port protocol="tcp" port="3306" accept"  添加规则
 
