@@ -22,6 +22,8 @@
 | dpkg                                                         | 为 “Debian” 专门开发的套件管理系统，方便软件的安装、更新及移除 | dpkg  -i  \<deb file name>                                   |
 | tar                                                          | -C 表示 换个文件夹                                           | tar -zxvf typora.gz -C /home/wg/typora                       |
 | rm -f \<文件 目录>                                           | 强力删除, 不要求确认                                         |                                                              |
+| rm 文件名                                                    |                                                              |                                                              |
+| rmdir 文件夹名                                               |                                                              |                                                              |
 | find / -name 文件名                                          | 准确查找文件                                                 |                                                              |
 | whereis <文件名或文件夹名>                                   | 查找所有文件                                                 |                                                              |
 | cat /etc/issue 或cat /etc/redhat-release                     | Linux查看版本当前操作系统发行版信息                          |                                                              |
@@ -55,6 +57,13 @@
 | cp -r /home/packageA/* /home/cp/packageB/                    | 复制文件夹下的所有文件 到另一个文件夹下                      |                                                              |
 | unzip zip文件名                                              | 解压zip文件                                                  |                                                              |
 | tar -zxvf gz文件名                                           | 解压gz文件                                                   |                                                              |
+| unzip 壓縮包名                                               | 解壓zip文件                                                  |                                                              |
+| unzip -d 指定目录名 要解压的文件                             | -d 后接目录： 指定文件解压缩后所要存储的目录；               |                                                              |
+| ln -s  源文件 目标文件                                       | 为某一个文件在另外一个位置建立一个同不的链接，这个命令最常用的参数是-s |                                                              |
+| sudo apt autoremove                                          | 清理系统                                                     |                                                              |
+| find . -type d -empty -delete                                | 删除所有空目录                                               |                                                              |
+| sudo apt-get -f install                                      | 修复依赖包                                                   |                                                              |
+
 
 
 # 2. 文件夹意义
@@ -1126,3 +1135,56 @@ firewall-cmd --permanent --remove-port=3306/tcp  删除原有的3306端口访问
 
 firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address=" 192.168.1.100" port protocol="tcp" port="3306" accept"  添加规则
 
+
+
+
+
+# 8. ubuntu mysql
+
+```
+sudo apt update
+```
+
+ 
+
+自动安装mysql ubuntu20 默认安装mysql8
+
+```
+sudo apt install mysql-server  
+```
+
+
+
+一旦安装完成，MySQL 服务将会自动启动。想要验证 MySQL 服务器正在运行，输入:
+
+```text
+sudo systemctl status mysql
+```
+
+
+
+以 root 用户身份登录 MySQL服务器，输入:
+
+```
+sudo mysql
+```
+
+
+
+```
+sudo service mysql status # 查看服务状态 
+
+sudo service mysql start # 启动服务 
+
+sudo service mysql stop # 停止服务 
+
+sudo service mysql restart # 重启服务
+```
+
+
+
+查看密码
+
+```
+sudo cat /etc/mysql/debian.cnf
+```
