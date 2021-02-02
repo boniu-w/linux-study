@@ -51,8 +51,10 @@
 | ssh usr@ip                                                   | 连其他主机                                                   |                                                              |
 | sudo passwd root                                             | 修改root 密码                                                |                                                              |
 | mv 原文件名 修改后的文件名                                   | 修改文件名                                                   |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
+| chmod -R 777 文件夹                                          | 给文件夹下所有文件 赋权限                                    |                                                              |
+| cp -r /home/packageA/* /home/cp/packageB/                    | 复制文件夹下的所有文件 到另一个文件夹下                      |                                                              |
+| unzip zip文件名                                              | 解压zip文件                                                  |                                                              |
+| tar -zxvf gz文件名                                           | 解压gz文件                                                   |                                                              |
 
 
 # 2. 文件夹意义
