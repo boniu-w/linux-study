@@ -63,6 +63,26 @@
 | sudo apt autoremove                                          | 清理系统                                                     |                                                              |
 | find . -type d -empty -delete                                | 删除所有空目录                                               |                                                              |
 | sudo apt-get -f install                                      | 修复依赖包                                                   |                                                              |
+| systemctl disable 服务名                                     | 禁止开机启动服务                                             |                                                              |
+| systemctl enable 服务名                                      | 开启开机启动服务                                             |                                                              |
+| shutdown -r now                                              | 立即重启                                                     |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
 
 
 
@@ -1137,6 +1157,14 @@ firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address=" 19
 
 
 
+| cenos7 防火墙                       |                       |
+| ----------------------------------- | --------------------- |
+| systemctl stop firewalld.service    | #停止firewall         |
+| systemctl disable firewalld.service | #禁止firewall开机启动 |
+| firewall-cmd --state                | 查看防火墙状态        |
+
+
+
 
 
 # 8. ubuntu mysql
@@ -1188,3 +1216,12 @@ sudo service mysql restart # 重启服务
 ```
 sudo cat /etc/mysql/debian.cnf
 ```
+
+
+
+
+
+# 9. 创建文件 文件夹
+
+1. 如果要创建一个空文件，可以使用touch命令。如**"touch zuoyo"**
+2. 如果vi 后面接的文件名不存在，会自动进入vi界面。意为创建一个文件
