@@ -66,7 +66,7 @@
 | systemctl disable 服务名                                     | 禁止开机启动服务                                             |                                                              |
 | systemctl enable 服务名                                      | 开启开机启动服务                                             |                                                              |
 | shutdown -r now                                              | 立即重启                                                     |                                                              |
-|                                                              |                                                              |                                                              |
+| shutdown -h now                                              | 关机                                                         |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
@@ -1225,3 +1225,38 @@ sudo cat /etc/mysql/debian.cnf
 
 1. 如果要创建一个空文件，可以使用touch命令。如**"touch zuoyo"**
 2. 如果vi 后面接的文件名不存在，会自动进入vi界面。意为创建一个文件
+
+
+
+
+
+# 10 ubuntu redis
+
+
+
+|                              |           |      |
+| ---------------------------- | --------- | ---- |
+| service redis-server start   | 启动redis |      |
+| service redis-server stop    | 关闭redis |      |
+| service redis-server restart | 重启redis |      |
+| service redis-server status  | 查看状态  |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+|                              |           |      |
+
