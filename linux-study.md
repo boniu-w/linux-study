@@ -1188,3 +1188,56 @@ sudo service mysql restart # 重启服务
 ```
 sudo cat /etc/mysql/debian.cnf
 ```
+
+
+
+
+
+# 9. centos 与 Ubuntu
+
+
+
+
+
+| 操作内容                   | Centos 6/7                                                   | Debian/Ubuntu                                                |
+| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1.软件包后缀               | *.rpm                                                        | *.deb                                                        |
+| 2.软件源配置文件           | /etc/yum.conf                                                | /etc/apt/sources.list                                        |
+| 3.更新软件包列表           | yum makecache fast                                           | apt-get update                                               |
+| 4.从软件仓库安装软件       | yum install package                                          | apt-get install package                                      |
+| 5.安装一个已下载的软件包   | yum install pkg.rpm rpm -i pkg.rpm                           | dpkg -i pkg.deb dpkg --install pkg.deb                       |
+| 6.删除软件包               | rpm -e package yum remove package                            | apt-get remove package apt-get purge package                 |
+| 7.获取某软件包的信息**     | yum search package                                           | apt-cache search package                                     |
+| 8.获显示所有已经安装软件   | yum list installed rpm -qa                                   | dpkg -l dpkg --list                                          |
+| 9.获取已经安装软件包的信息 | rpm -qi package                                              | dpkg --status packages                                       |
+| 10.网卡配置文件            | /etc/sysconfig/network-scripts/ifcfg-eth0                    | /etc/network/interfaces                                      |
+| 11.selinux                 | /etc/selinux/config                                          | 没有 selinux                                                 |
+| 12.SSH                     | 默认允许 root 登陆                                           | 默认不允许 root 登陆                                         |
+| 13.创建用户                | 默认创建用户家目录 默认 shell 解释器为 bash 免交互创建密码--stdin | 默认不创建用户家目录 默认 shell 解释器为 sh 免交互创建密码 chpasswd |
+| 14.防火墙规则              | 默认规则                                                     | 默认没有任何规则                                             |
+| 15.权限                    | root 或普通用户                                              | 默认普通用户权限                                             |
+
+
+
+## 常用的apt-get命令参数
+
+
+
+| apt-cache search package            | 搜索包                                 |
+| ----------------------------------- | -------------------------------------- |
+| apt-cache show package              | 获取包的相关信息，如说明、大小、版本等 |
+| apt-cache depends package           | 了解使用依赖                           |
+| apt-cache rdepends package          | 查看该包被哪些包依赖                   |
+| apt-get install package             | 安装包                                 |
+| apt-get install package --reinstall | 重新安装包                             |
+| apt-get -f install                  | 修复安装"-f = --fix-missing"           |
+| apt-get remove package              | 删除包                                 |
+| apt-get remove package --purge      | 删除包，包括删除配置文件等             |
+| apt-get update                      | 更新源                                 |
+| apt-get upgrade                     | 更新已安装的包                         |
+| apt-get dist-upgrade                | 升级系统                               |
+| apt-get dselect-upgrade             | 使用 dselect 升级                      |
+| apt-get build-dep package           | 安装相关的编译环境                     |
+| apt-get source package              | 下载该包的源代码                       |
+| apt-get clean && apt-get autoclean  | 清理无用的包                           |
+| apt-get check                       | 检查是否有损坏的依赖                   |
