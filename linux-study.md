@@ -67,7 +67,7 @@
 | systemctl enable 服务名                                      | 开启开机启动服务                                             |                                                              |
 | shutdown -r now                                              | 立即重启                                                     |                                                              |
 | shutdown -h now                                              | 关机                                                         |                                                              |
-|                                                              |                                                              |                                                              |
+| tcpdump -nn -i eth0 port 80                                  | -n : 转成数字;<br />-i : interface<br />80 : 百度的端口号    |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
