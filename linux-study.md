@@ -55,9 +55,9 @@
 | mv 原文件名 修改后的文件名                                   | 修改文件名                                                   |                                                              |
 | chmod -R 777 文件夹                                          | 给文件夹下所有文件 赋权限                                    |                                                              |
 | cp -r /home/packageA/* /home/cp/packageB/                    | 复制文件夹下的所有文件 到另一个文件夹下                      |                                                              |
-| unzip zip文件名                                              | 解压zip文件                                                  |                                                              |
+| unzip zip文件名                                              | 解压zip文件, jar包                                           |                                                              |
 | tar -zxvf gz文件名                                           | 解压gz文件                                                   |                                                              |
-| unzip 壓縮包名                                               | 解壓zip文件                                                  |                                                              |
+| unzip 壓縮包名                                               | 解壓zip文件, jar包                                           |                                                              |
 | unzip -d 指定目录名 要解压的文件                             | -d 后接目录： 指定文件解压缩后所要存储的目录；               |                                                              |
 | ln -s  源文件 目标文件                                       | 为某一个文件在另外一个位置建立一个同不的链接，这个命令最常用的参数是-s |                                                              |
 | sudo apt autoremove                                          | 清理系统                                                     |                                                              |
@@ -68,6 +68,9 @@
 | shutdown -r now                                              | 立即重启                                                     |                                                              |
 | shutdown -h now                                              | 关机                                                         |                                                              |
 | tcpdump -nn -i eth0 port 80                                  | -n : 转成数字;<br />-i : interface<br />80 : 百度的端口号    |                                                              |
+| cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime          | 修改 时区                                                    |                                                              |
+| date -s 时间                                                 | 修改时间                                                     | date -s '2000-12-12 12:12:12'                                |
+| mv 文件[夹]a  文件[夹]b                                      | 重命名文件夹                                                 |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
@@ -80,9 +83,18 @@
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
+
+
+
+## node 命令
+
+ 
+
+| command |      |      |
+| ------- | ---- | ---- |
+|         |      |      |
+|         |      |      |
+|         |      |      |
 
 
 
@@ -1007,9 +1019,13 @@ systemctl disable redis.service  #停止开机自启动
 
 # 5. 命令解释
 
-1. nohup java -jar tientsineye.jar > tientsineye.out 2>&1 &
+1. ```shell
+    nohup java -jar tientsineye.jar > tientsineye.out 2>&1 &
+   ```
 
-2. ```c
+   
+
+2. ```shell
    nohup java -jar *.jar --spring.config.location=config/application.properties >*.log&
    ```
 
@@ -1285,30 +1301,563 @@ sudo cat /etc/mysql/debian.cnf
 
 
 
-|                              |           |      |
-| ---------------------------- | --------- | ---- |
-| service redis-server start   | 启动redis |      |
-| service redis-server stop    | 关闭redis |      |
-| service redis-server restart | 重启redis |      |
-| service redis-server status  | 查看状态  |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
-|                              |           |      |
+| command                      | description |      |
+| ---------------------------- | ----------- | ---- |
+| service redis-server start   | 启动redis   |      |
+| service redis-server stop    | 关闭redis   |      |
+| service redis-server restart | 重启redis   |      |
+| service redis-server status  | 查看状态    |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
+|                              |             |      |
 
->>>>>>> 3ebfd9299a10e93644d2dfe63ca6be22cc1d3513
+
+
+# 12. /bin/bash
+
+   ![](H:\linux-study\img\20170404132212257.png)
+
+ 
+
+>  第一行的内容指定了shell脚本解释器的路径，而且这个指定路径只能放在文件的第一行。第一行写错或者不写时，系统会有一个默认的解释器进行解释。
+
+
+
+
+
+# 13. 文件命令
+
+
+
+| command                                 |                                           |                                              |
+| --------------------------------------- | ----------------------------------------- | -------------------------------------------- |
+| touch 新文件                            | 新建文件                                  |                                              |
+| find (/查找范围) -name 文件名[文件夹名] | 查找文件                                  | find home -name nginx<br>find / -name nginx; |
+| rm -f \<文件 目录>                      | 强力删除, 不要求确认                      |                                              |
+| rmdir 文件夹名                          |                                           |                                              |
+| rm 文件名                               |                                           |                                              |
+| mv 原文件名 修改后的文件名              | 修改文件名                                |                                              |
+| unzip zip文件名                         | 解压zip文件                               |                                              |
+| tar -zxvf gz文件名                      | 解压gz文件                                |                                              |
+| tar                                     | -C 表示 换个文件夹                        | tar -zxvf typora.gz -C /home/wg/typora       |
+| echo  >  文件名                         | 清除文件内容                              | echo  >  文件名                              |
+| sudo chmod -R 777 文件夹                | 给文件夹下所有文件 赋权限                 |                                              |
+| shopt -s extglob                        | 开启 删除 除了 -s 开启 -u关闭             |                                              |
+| rm -f !(a)                              | 先执行上面的命令删除除了 a 之外的所有文件 |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+|                                         |                                           |                                              |
+
+
+
+# 14. 网络命令
+
+  
+
+| command        |                                                   |      |
+| -------------- | ------------------------------------------------- | ---- |
+| netstat        | 查端口号                                          |      |
+| netstat -tunlp | 用于显示tcp udp的端口和进程情况, 详见下方命令解释 |      |
+|                |                                                   |      |
+
+
+
+# 15. 系统命令
+
+  ## 1. command
+
+
+
+| command                                                    |                                                              |                                                              |
+| ---------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| dpkg                                                       | Debian Packager ”的简写, 为 “Debian” 专门开发的套件管理系统，方便软件的安装、更新及移除, 所有源自“Debian”的“Linux ”发行版都使用 “dpkg”，例如 “Ubuntu”、“Knoppix ”等。 |                                                              |
+| apt                                                        | Advanced Package Tool, 命令并不直接操作 deb 安装包文件，而是从 /etc/apt/sources.list 配置文件中定义的软件镜像源里下载软件包并安装，使用时也只需指定软件的名称（或者也可以附加上版本号）。**因此，dpkg 主要是用来安装已经下载到本地的 deb 软件包，或者对已经安装好的软件进行管理。而 apt-get 可以直接从远程的软件仓库里下载安装软件** |                                                              |
+| systemd-analyze blame                                      | 查看开机启动项                                               |                                                              |
+| systemd is-enabled redis.service                           | 查看 redis 是否开机启动                                      |                                                              |
+| pwd                                                        | 查看当前位置                                                 |                                                              |
+| tail -f 文件名                                             | 查看文件详情                                                 | tail -f nohup.out                                            |
+| ps -ef\|grep 进程名                                        | 查看进程                                                     | ps -ef\|grep java                                            |
+| cat /proc/meminfo                                          | 查看内存信息命令                                             |                                                              |
+| fdisk -l                                                   | 查看硬盘信息命令                                             |                                                              |
+| sudo cat /etc/mysql/debian.cnf                             | 查看 自动安装的 mysql 密码                                   |                                                              |
+| cat /etc/passwd                                            | 查看用户信息                                                 | 用户名：密码占位符（x 表示用户需要密码登录）：用户标识号（`UID`）：<br/>组标识号（`GID`）：注释性描述：主目录：登录的 `shell` |
+| cat /etc/shadow                                            | 查看用户密码                                                 |                                                              |
+| cat /etc/group                                             | 查看用户组                                                   | 组名 : 口令 : 组标识号（`GID`）：组内用户列表（多用户可用逗号分隔开） |
+| echo                                                       | 显示文字                                                     | echo $PATH    // 显示 path                                   |
+| update-alternatives --config java                          | 切换Java版本, 能看到java 的安装位置                          |                                                              |
+| source /etc/profile                                        | 让配置生效                                                   |                                                              |
+| shopt -s extgolb                                           | 开启 特定文件的删除或 除了 某些文件 删除其他的文件; 打开扩展的模式匹配特性(正常的表达式元字符来自Korn shell的文件名扩展) |                                                              |
+| firewall-cmd --zone=public  --list-ports                   | 查看已经对外开放的端口                                       |                                                              |
+| firewall-cmd --zone=public --add-port=8080/tcp --permanent | 添加开放对外的端口(8080)                                     |                                                              |
+| firewall-cmd --reload                                      | 重新载入一下防火墙设置，使设置生效                           |                                                              |
+| firewall-cmd --zone=public --query-port=2228/tcp           | 通过命令查看是否生效                                         |                                                              |
+| apt-get --purge remove 程序名                              | 删除某程序                                                   |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+|                                                            |                                                              |                                                              |
+
+
+
+## 2. 详细说明
+
+### 1. shopt
+
+ shopt = shell options
+
+shopt 命令用于显示和设置shell中的行为选项，通过这些选项以增强shell易用性。
+
+简介
+
+shopt [-psu] [optname …]
+
+-s 开启某个选项.
+
+-u 关闭某个选项.
+
+-p 列出所有可设置的选项.
+
+
+
+```shell
+[root@master four]# shopt
+autocd         	off
+cdable_vars    	off
+cdspell        	off
+checkhash      	off
+checkjobs      	off
+checkwinsize   	on
+cmdhist        	on
+compat31       	off
+compat32       	off
+compat40       	off
+dirspell       	off
+dotglob        	off
+execfail       	off
+expand_aliases 	on
+extdebug       	off
+extglob        	on
+extquote       	on
+failglob       	off
+force_fignore  	on
+globstar       	off
+gnu_errfmt     	off
+histappend     	off
+histreedit     	off
+histverify     	off
+hostcomplete   	on
+huponexit      	off
+interactive_comments	on
+lithist        	off
+login_shell    	on
+mailwarn       	off
+no_empty_cmd_completion	off
+nocaseglob     	off
+nocasematch    	off
+nullglob       	off
+progcomp       	on
+promptvars     	on
+restricted_shell	off
+shift_verbose  	off
+sourcepath     	on
+xpg_echo       	off
+[root@master four]# shopt
+autocd         	off
+cdable_vars    	off
+cdspell        	off
+checkhash      	off
+checkjobs      	off
+checkwinsize   	on
+cmdhist        	on
+compat31       	off
+compat32       	off
+compat40       	off
+dirspell       	off
+dotglob        	off
+execfail       	off
+expand_aliases 	on
+extdebug       	off
+extglob        	on
+extquote       	on
+failglob       	off
+force_fignore  	on
+globstar       	off
+gnu_errfmt     	off
+histappend     	off
+histreedit     	off
+histverify     	off
+hostcomplete   	on
+huponexit      	off
+interactive_comments	on
+lithist        	off
+login_shell    	on
+mailwarn       	off
+no_empty_cmd_completion	off
+nocaseglob     	off
+nocasematch    	off
+nullglob       	off
+progcomp       	on
+promptvars     	on
+restricted_shell	off
+shift_verbose  	off
+sourcepath     	on
+xpg_echo       	off
+```
+
+### 2. dpkg
+
+dpkg = Debian Packager
+
+dpkg --list: 
+
+```shell
+
+期望状态=未知(u)/安装(i)/删除(r)/清除(p)/保持(h)
+| 状态=未安装(n)/已安装(i)/仅存配置(c)/仅解压缩(U)/配置失败(F)/不完全安装(H)/触发器等待(W)/触发器未决(T)
+|/ 错误?=(无)/须重装(R) (状态，错误：大写=故障)
+||/ 名称                                       版本                                  体系结构     描述
++++-==========================================-=====================================-============-======================================================================================================
+ii  accountsservice                            0.6.55-0ubuntu12~20.04.5              amd64        query and manipulate user account information
+ii  acl                                        2.2.53-6                              amd64        access control list - utilities
+ii  acpi-support                               0.143                                 amd64        scripts for handling many ACPI events
+ii  acpid                                      1:2.0.32-1ubuntu1                     amd64        Advanced Configuration and Power Interface event daemon
+ii  adduser                                    3.118ubuntu2                          all          add and remove users and groups
+
+```
+
+
+
+dpkg --help: 
+
+```shell
+
+命令：
+  -i|--install       <.deb 文件名> ... | -R|--recursive <目录> ...
+  --unpack           <.deb 文件名> ... | -R|--recursive <目录> ...
+  -A|--record-avail  <.deb 文件名> ... | -R|--recursive <目录> ...
+  --configure        <软件包名>    ... | -a|--pending
+  --triggers-only    <软件包名>    ... | -a|--pending
+  -r|--remove        <软件包名>    ... | -a|--pending
+  -P|--purge         <软件包名>    ... | -a|--pending
+  -V|--verify <软件包名> ...       检查包的完整性。
+  --get-selections [<表达式> ...]  把已选中的软件包列表打印到标准输出。
+  --set-selections                 从标准输入里读出要选择的软件。
+  --clear-selections               取消选中所有不必要的软件包。
+  --update-avail <软件包文件>      替换现有可安装的软件包信息。
+  --merge-avail  <软件包文件>      把文件中的信息合并到系统中。
+  --clear-avail                    清除现有的软件包信息。
+  --forget-old-unavail             忘却已被卸载的不可安装的软件包。
+  -s|--status      <软件包名> ...  显示指定软件包的详细状态。
+  -p|--print-avail <软件包名> ...  显示可供安装的软件版本。
+  -L|--listfiles   <软件包名> ...  列出属于指定软件包的文件。
+  -l|--list  [<表达式> ...]        简明地列出软件包的状态。
+  -S|--search <表达式> ...         搜索含有指定文件的软件包。
+  -C|--audit [<表达式> ...]        检查是否有软件包残损。
+  --yet-to-unpack                  列出标记为待解压的软件包。
+  --predep-package                 列出待解压的预依赖。
+  --add-architecture    <体系结构> 添加 <体系结构> 到体系结构列表。
+  --remove-architecture <体系结构> 从架构列表中移除 <体系结构>。
+  --print-architecture             显示 dpkg 体系结构。
+  --print-foreign-architectures    显示已启用的异质体系结构。
+  --assert-<特性>                  对指定特性启用断言支持。
+  --validate-<属性> <字符串>       验证一个 <属性>的 <字符串>。
+  --compare-vesions <a> <关系> <b> 比较版本号 - 见下。
+  --force-help                     显示本强制选项的帮助信息。
+  -Dh|--debug=help                 显示有关出错调试的帮助信息。
+
+  -?, --help                       显示本帮助信息。
+      --version                    显示版本信息。
+
+Assert 特性： support-predepends, working-epoch, long-filenames,
+  multi-conrep, multi-arch, versioned-provides.
+
+可验证的属性：pkgname, archname, trigname, version.
+
+调用 dpkg 并带参数 -b, --build, -c, --contents, -e, --control, -I, --info,
+  -f, --field, -x, --extract, -X, --vextract, --ctrl-tarfile, --fsys-tarfile
+是针对归档文件的。 (输入 dpkg-deb --help 获取帮助)
+
+选项：
+  --admindir=<目录>          使用 <目录> 而非 /var/lib/dpkg。
+  --root=<目录>              安装到另一个根目录下。
+  --instdir=<目录>           改变安装目录的同时保持管理目录不变。
+  --path-exclude=<表达式>    不要安装符合Shell表达式的路径。
+  --path-include=<表达式>    在排除模式后再包含一个模式。
+  -O|--selected-only         忽略没有被选中安装或升级的软件包。
+  -E|--skip-same-version     忽略版本与已安装软件版本相同的软件包。
+  -G|--refuse-downgrade      忽略版本早于已安装软件版本的的软件包。
+  -B|--auto-deconfigure      就算会影响其他软件包，也要安装。
+  --[no-]triggers            跳过或强制随之发生的触发器处理。
+  --verify-format=<格式>     检查输出格式('rpm'被支持)。
+  --no-debsig                不去尝试验证软件包的签名。
+  --no-act|--dry-run|--simulate
+                             仅报告要执行的操作 - 但是不执行。
+  -D|--debug=<八进制数>      开启调试(参见 -Dhelp 或者 --debug=help)。
+  --status-fd <n>            发送状态更新到文件描述符<n>。
+  --status-logger=<命令>     发送状态更新到 <命令> 的标准输入。
+  --log=<文件名>             将状态更新和操作信息到 <文件名>。
+  --ignore-depends=<软件包>,...
+                             忽略关于 <软件包> 的所有依赖关系。
+  --force-...                忽视遇到的问题(参见 --force-help)。
+  --no-force-...|--refuse-...
+                             当遇到问题时中止运行。
+  --abort-after <n>          累计遇到 <n> 个错误后中止。
+
+可供--compare-version 使用的比较运算符有：
+ lt le eq ne ge gt        (如果版本号为空，那么就认为它先于任意版本号)；
+ lt-nl le-nl ge-nl gt-nl  (如果版本号为空，那么就认为它后于任意版本号)；
+ < << <= = >= >> >        (仅仅是为了与主控文件的语法兼容)。
+
+'apt' 和 'aptitude' 提供了更为便利的软件包管理。
+```
+
+
+
+|                                                 |                                |      |
+| ----------------------------------------------- | ------------------------------ | ---- |
+| dpkg --list \| grep ^rc                         | 查看处于 `rc` 状态的软件包：   |      |
+| dpkg --purge 程序名                             | 删除程序, 并删除其配置文件     |      |
+| dpkg -s <package> 或 dpkg --status <package>    | 查看软件包（已安装）的详细信息 |      |
+| dpkg -L <package> 或 dpkg --listfiles <package> | 查看软件包的安装位置           |      |
+|                                                 |                                |      |
+|                                                 |                                |      |
+|                                                 |                                |      |
+|                                                 |                                |      |
+|                                                 |                                |      |
+
+
+
+### 3. grep
+
+grep =  Global Regular Expression Print
+
+命令用于查找文件里符合条件的字符串。grep 指令用于查找内容包含指定的范本样式的文件，如果发现某文件的内容符合所指定的范本样式，预设 grep 指令会把含有范本样式的那一列显示出来。若不指定任何文件名称，或是所给予的文件名为 **-**，则 grep 指令会从标准输入设备读取数据。
+
+
+
+在当前目录中，查找后缀有 file 字样的文件中包含 test 字符串的文件，并打印出该字符串的行。此时，可以使用如下命令
+
+```shell
+grep "test" *file
+```
+
+
+
+|                             |                                                              |      |
+| --------------------------- | ------------------------------------------------------------ | ---- |
+| grep "mysql" /etc/passwd    | 查找 mysql 字符串 在 /etc/passwd 文件里                      |      |
+| grep -v "mysql" /etc/passwd | 查询 没有 mysql 的行 , 我们使用`-v`选项实现了反查效果，可以看到，含有 mysql 的行都没有展示出来。 |      |
+|                             |                                                              |      |
+
+
+
+```shell
+wg@wg-Aspire-A315-55G:~$ grep --help
+用法: grep [选项]... 模式 [文件]...
+在每个<文件>中查找给定<模式>。
+例如：grep -i 'hello world' menu.h main.c
+<模式>可以包括多个模式字符串，使用换行符进行分隔。
+
+模式选择与解释：
+  -E, --extended-regexp     <模式> 是扩展正则表达式
+  -F, --fixed-strings       <模式> 是字符串
+  -G, --basic-regexp        <模式> 是基本正则表达式
+  -P, --perl-regexp         <模式> 是 Perl 正则表达式
+  -e, --regexp=<模式>       用指定的<模式>字符串来进行匹配操作
+  -f, --file=<文件>         从给定<文件>中取得<模式>
+  -i, --ignore-case         在模式和数据中忽略大小写
+      --no-ignore-case      不要忽略大小写（默认）
+  -w, --word-regexp         强制<模式>仅完全匹配字词
+  -x, --line-regexp         强制<模式>仅完全匹配整行
+  -z, --null-data           数据行以一个 0 字节结束，而非换行符
+
+杂项:
+  -s, --no-messages         不显示错误信息
+  -v, --invert-match        选中不匹配的行
+  -V, --version             显示版本信息并退出
+      --help                显示此帮助并退出
+
+输出控制：
+  -m, --max-count=<次数>    得到给定<次数>次匹配后停止
+  -b, --byte-offset         输出的同时打印字节偏移
+  -n, --line-number         输出的同时打印行号
+      --line-buffered       每行输出后刷新输出缓冲区
+  -H, --with-filename       为输出行打印文件名
+  -h, --no-filename         输出时不显示文件名前缀
+      --label=<标签>        将给定<标签>作为标准输入文件名前缀
+  -o, --only-matching       只显示行中非空匹配部分
+  -q, --quiet, --silent     不显示所有常规输出
+      --binary-files=TYPE   设定二进制文件的 TYPE（类型）；
+                            TYPE 可以是 'binary'、'text' 或 'without-match'
+  -a, --text                等同于 --binary-files=text
+  -I                        等同于 --binary-files=without-match
+  -d, --directories=ACTION  读取目录的方式；
+                            ACTION 可以是`read', `recurse',或`skip'
+  -D, --devices=ACTION      读取设备、先入先出队列、套接字的方式；
+                            ACTION 可以是`read'或`skip'
+  -r, --recursive           等同于--directories=recurse
+  -R, --dereference-recursive       同上，但遍历所有符号链接
+      --include=GLOB        只查找匹配 GLOB（文件模式）的文件
+      --exclude=GLOB        跳过匹配 GLOB 的文件
+      --exclude-from=FILE   跳过所有匹配给定文件内容中任意模式的文件
+      --exclude-dir=GLOB    跳过所有匹配 GLOB 的目录
+  -L, --files-without-match  只打印没有匹配上的<文件>的名称
+  -l, --files-with-matches  只打印有匹配的<文件>的名称
+  -c, --count               只打印每个<文件>中的匹配行数目
+  -T, --initial-tab         行首制表符对齐（如有必要）
+  -Z, --null                在<文件>名最后打印空字符
+
+文件控制:
+  -B, --before-context=NUM  打印文本及其前面NUM 行
+  -A, --after-context=NUM   打印文本及其后面NUM 行
+  -C, --context=NUM         打印NUM 行输出文本
+  -NUM                      等同于 --context=NUM
+      --color[=WHEN],
+      --colour[=WHEN]       使用标记高亮匹配字串；
+                            WHEN 可以是“always”、“never”或“auto”
+  -U, --binary              不要清除行尾的 CR 字符（MSDOS/Windows）
+
+若给定<文件>为“-”，则从读取标准输入。  若无<文件>参数，则除非处于
+递归工作模式视为从“.”读取之外，一律视为从“-”读取。如果提供了少于
+两个<文件>参数，则默认启用 -h 选项。如果有任意行（或者指定了 -L 选项
+并有任意文件）被匹配，则退出状态为 0，否则为 1；如果有错误产生，且未指
+定 -q 参数，则退出状态为 2。
+
+请将错误报告给：bug-grep@gnu.org。翻译问题请报告至 <i18n-zh@googlegroups.com>。
+GNU grep 主页: <http://www.gnu.org/software/grep/>
+GNU 软件的通用帮助: <https://www.gnu.org/gethelp/>
+
+```
+
+
+
+### 4. ps
+
+ps = process status 
+
+用于显示当前进程的状态，类似于 windows 的任务管理器。
+
+
+
+ps -ef | grep redis
+
+```tex
+参数 -e  显示运行在系统上的所有进程
+
+参数 -f  扩展显示输出
+
+中间的|是管道命令 是指ps命令与grep同时执行
+```
+
+
+
+# 16. 权限
+
+ 例: 
+
+```shell
+drwxr-xr-x   2 root root  4096 2009-01-14 17:34 bin 
+```
+
+其中 drwxr-xr-x 共 10位, 以0-9为序号
+
+其中 0位 : [ d ]–目录、[ - ]–文件、[ l ]–链接、[ b ]–可储存周边设备、[ c ]–序列设备
+
+123位: 表示拥有人的权限
+
+456位: 表示同组群使用者权限
+
+789位: 表示其他使用者权限
+
+---
+
+r、w、x也有对应的数字：
+r—4
+w—2
+x—1
+
+5=4 + 1,表示拥有可读,可执行权限，但是没有写权限
+
+7=4+2+1, 表示可读,可写,可执行权限
+
+```shell
+# 可看权限
+ls -l [文件名]
+```
+
+
+
+|      |                                              |      |
+| ---- | -------------------------------------------- | ---- |
+| 600  | 只有所有者有读和写的权限                     |      |
+| 644  | 只有所有者有读和写的权限，组用户只有读的权限 |      |
+| 700  | 只有所有者有读和写以及执行的权限             |      |
+| 666  | 每个人都有读和写的权限                       |      |
+| 777  | 每个人都有读和写以及执行的权限               |      |
+| 774  | 其他人只能读                                 |      |
+| 664  | 其他人只能读                                 |      |
+
+
+
+# 17. 语法
+
+命令格式中常用的几个符号含义如下：
+
+尖括号< >：必选参数，实际使用时应将其替换为所需要的参数
+
+大括号{ }：必选参数，内部使用，包含此处允许使用的参数
+
+方括号[ ]：可选参数，在命令中根据需要加以取舍
+
+小括号( )：指明参数的默认值，只用于{ }中
+
+竖线|：用于分隔多个互斥参数，含义为“或”，使用时只能选择一个。
+
+省略号…：任意多个参数。
