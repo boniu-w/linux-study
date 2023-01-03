@@ -71,7 +71,7 @@
 | cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime          | 修改 时区                                                    |                                                              |
 | date -s 时间                                                 | 修改时间                                                     | date -s '2000-12-12 12:12:12'                                |
 | mv 文件[夹]a  文件[夹]b                                      | 重命名文件夹                                                 |                                                              |
-|                                                              |                                                              |                                                              |
+| mysql  -u   用户名  -p  <数据库名>                           | 进入mysql                                                    |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
@@ -97,6 +97,10 @@
 |         |      |      |
 
 
+
+## tee
+
+用于显示程序的输出, 并将其复制到某个文件中
 
 # 2. 文件夹意义
 
@@ -1345,40 +1349,41 @@ sudo cat /etc/mysql/debian.cnf
 
 
 
-| command                                 |                                           |                                              |
-| --------------------------------------- | ----------------------------------------- | -------------------------------------------- |
-| touch 新文件                            | 新建文件                                  |                                              |
-| find (/查找范围) -name 文件名[文件夹名] | 查找文件                                  | find home -name nginx<br>find / -name nginx; |
-| rm -f \<文件 目录>                      | 强力删除, 不要求确认                      |                                              |
-| rmdir 文件夹名                          |                                           |                                              |
-| rm 文件名                               |                                           |                                              |
-| mv 原文件名 修改后的文件名              | 修改文件名                                |                                              |
-| unzip zip文件名                         | 解压zip文件                               |                                              |
-| tar -zxvf gz文件名                      | 解压gz文件                                |                                              |
-| tar                                     | -C 表示 换个文件夹                        | tar -zxvf typora.gz -C /home/wg/typora       |
-| echo  >  文件名                         | 清除文件内容                              | echo  >  文件名                              |
-| sudo chmod -R 777 文件夹                | 给文件夹下所有文件 赋权限                 |                                              |
-| shopt -s extglob                        | 开启 删除 除了 -s 开启 -u关闭             |                                              |
-| rm -f !(a)                              | 先执行上面的命令删除除了 a 之外的所有文件 |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
-|                                         |                                           |                                              |
+| command                                 |                                                |                                              |
+| --------------------------------------- | ---------------------------------------------- | -------------------------------------------- |
+| touch 新文件                            | 新建文件                                       |                                              |
+| find (/查找范围) -name 文件名[文件夹名] | 查找文件                                       | find home -name nginx<br>find / -name nginx; |
+| rm -rf \<文件 目录>                     | 强力删除, 不要求确认                           |                                              |
+| rmdir 文件夹名                          |                                                |                                              |
+| rm 文件名                               |                                                |                                              |
+| mv 原文件名 修改后的文件名              | 修改文件名                                     |                                              |
+| unzip zip文件名                         | 解压zip文件                                    |                                              |
+| unzip -d 指定目录名 要解压的文件        | -d 后接目录： 指定文件解压缩后所要存储的目录； | unzip  -d  /home/wg  test.jar                |
+| tar -zxvf gz文件名                      | 解压gz文件                                     |                                              |
+| tar                                     | -C 表示 换个文件夹                             | tar -zxvf typora.gz -C /home/wg/typora       |
+| echo  >  文件名                         | 清除文件内容                                   | echo  >  文件名                              |
+| sudo chmod -R 777 文件夹                | 给文件夹下所有文件 赋权限                      |                                              |
+| shopt -s extglob                        | 开启 删除 除了 -s 开启 -u关闭                  |                                              |
+| rm -f !(a)                              | 先执行上面的命令删除除了 a 之外的所有文件      |                                              |
+| cp   -r  /home/wg/nacos   /usr/nacos    | 复制文件夹 -r 表示 递归复制                    |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
+|                                         |                                                |                                              |
 
 
 
@@ -1400,49 +1405,55 @@ sudo cat /etc/mysql/debian.cnf
 
 
 
-| command                                                    |                                                              |                                                              |
-| ---------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| dpkg                                                       | Debian Packager ”的简写, 为 “Debian” 专门开发的套件管理系统，方便软件的安装、更新及移除, 所有源自“Debian”的“Linux ”发行版都使用 “dpkg”，例如 “Ubuntu”、“Knoppix ”等。 |                                                              |
-| apt                                                        | Advanced Package Tool, 命令并不直接操作 deb 安装包文件，而是从 /etc/apt/sources.list 配置文件中定义的软件镜像源里下载软件包并安装，使用时也只需指定软件的名称（或者也可以附加上版本号）。**因此，dpkg 主要是用来安装已经下载到本地的 deb 软件包，或者对已经安装好的软件进行管理。而 apt-get 可以直接从远程的软件仓库里下载安装软件** |                                                              |
-| systemd-analyze blame                                      | 查看开机启动项                                               |                                                              |
-| systemd is-enabled redis.service                           | 查看 redis 是否开机启动                                      |                                                              |
-| pwd                                                        | 查看当前位置                                                 |                                                              |
-| tail -f 文件名                                             | 查看文件详情                                                 | tail -f nohup.out                                            |
-| ps -ef\|grep 进程名                                        | 查看进程                                                     | ps -ef\|grep java                                            |
-| cat /proc/meminfo                                          | 查看内存信息命令                                             |                                                              |
-| fdisk -l                                                   | 查看硬盘信息命令                                             |                                                              |
-| sudo cat /etc/mysql/debian.cnf                             | 查看 自动安装的 mysql 密码                                   |                                                              |
-| cat /etc/passwd                                            | 查看用户信息                                                 | 用户名：密码占位符（x 表示用户需要密码登录）：用户标识号（`UID`）：<br/>组标识号（`GID`）：注释性描述：主目录：登录的 `shell` |
-| cat /etc/shadow                                            | 查看用户密码                                                 |                                                              |
-| cat /etc/group                                             | 查看用户组                                                   | 组名 : 口令 : 组标识号（`GID`）：组内用户列表（多用户可用逗号分隔开） |
-| echo                                                       | 显示文字                                                     | echo $PATH    // 显示 path                                   |
-| update-alternatives --config java                          | 切换Java版本, 能看到java 的安装位置                          |                                                              |
-| source /etc/profile                                        | 让配置生效                                                   |                                                              |
-| shopt -s extgolb                                           | 开启 特定文件的删除或 除了 某些文件 删除其他的文件; 打开扩展的模式匹配特性(正常的表达式元字符来自Korn shell的文件名扩展) |                                                              |
-| firewall-cmd --zone=public  --list-ports                   | 查看已经对外开放的端口                                       |                                                              |
-| firewall-cmd --zone=public --add-port=8080/tcp --permanent | 添加开放对外的端口(8080)                                     |                                                              |
-| firewall-cmd --reload                                      | 重新载入一下防火墙设置，使设置生效                           |                                                              |
-| firewall-cmd --zone=public --query-port=2228/tcp           | 通过命令查看是否生效                                         |                                                              |
-| apt-get --purge remove 程序名                              | 删除某程序                                                   |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
-|                                                            |                                                              |                                                              |
+| command                                                      |                                                              |                                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| dpkg                                                         | Debian Packager ”的简写, 为 “Debian” 专门开发的套件管理系统，方便软件的安装、更新及移除, 所有源自“Debian”的“Linux ”发行版都使用 “dpkg”，例如 “Ubuntu”、“Knoppix ”等。 |                                                              |
+| apt                                                          | Advanced Package Tool, 命令并不直接操作 deb 安装包文件，而是从 /etc/apt/sources.list 配置文件中定义的软件镜像源里下载软件包并安装，使用时也只需指定软件的名称（或者也可以附加上版本号）。**因此，dpkg 主要是用来安装已经下载到本地的 deb 软件包，或者对已经安装好的软件进行管理。而 apt-get 可以直接从远程的软件仓库里下载安装软件** |                                                              |
+| systemd-analyze blame                                        | 查看开机启动项                                               |                                                              |
+| systemd is-enabled redis.service                             | 查看 redis 是否开机启动                                      |                                                              |
+| pwd                                                          | 查看当前位置                                                 |                                                              |
+| tail -f 文件名                                               | 查看文件详情                                                 | tail -f nohup.out                                            |
+| ps -ef\|grep 进程名                                          | 查看进程                                                     | ps -ef\|grep java                                            |
+| pstree                                                       | 树状显示进程                                                 |                                                              |
+| ps  aux                                                      | 显示进程                                                     |                                                              |
+| cat /proc/meminfo                                            | 查看内存信息命令                                             |                                                              |
+| fdisk -l                                                     | 查看硬盘信息命令                                             |                                                              |
+| sudo cat /etc/mysql/debian.cnf                               | 查看 自动安装的 mysql 密码                                   |                                                              |
+| cat /etc/passwd                                              | 查看用户信息                                                 | 用户名：密码占位符（x 表示用户需要密码登录）：用户标识号（`UID`）：<br/>组标识号（`GID`）：注释性描述：主目录：登录的 `shell` |
+| cat /etc/shadow                                              | 查看用户密码                                                 |                                                              |
+| cat /etc/group                                               | 查看用户组                                                   | 组名 : 口令 : 组标识号（`GID`）：组内用户列表（多用户可用逗号分隔开） |
+| cat  /proc/cpuinfo                                           | 查看cpu 信息                                                 |                                                              |
+| echo                                                         | 显示文字                                                     | echo $PATH    // 显示 path                                   |
+| update-alternatives --config java                            | 切换Java版本, 能看到java 的安装位置                          |                                                              |
+| source /etc/profile                                          | 让配置生效                                                   |                                                              |
+| shopt -s extgolb                                             | 开启 特定文件的删除或 除了 某些文件 删除其他的文件; 打开扩展的模式匹配特性(正常的表达式元字符来自Korn shell的文件名扩展) |                                                              |
+| firewall-cmd --zone=public  --list-ports                     | 查看已经对外开放的端口                                       |                                                              |
+| firewall-cmd --zone=public --add-port=8080/tcp --permanent   | 添加开放对外的端口(8080)                                     |                                                              |
+| firewall-cmd --reload                                        | 重新载入一下防火墙设置，使设置生效                           |                                                              |
+| firewall-cmd --zone=public --query-port=2228/tcp             | 通过命令查看是否生效                                         |                                                              |
+| firewall-cmd --zone=public --remove-port=80/tcp --permanent  | 关闭80/tcp端口                                               |                                                              |
+| firewall-cmd --zone=public --add-port=40000-45000/tcp --permanent | 批量开放端口，打开从40000到45000之间的所有端口               |                                                              |
+| firewall-cmd --zone=public --remove-port=40000-45000/tcp --permanent | 批量关闭端口，关闭从40000到45000之间的所有端口               |                                                              |
+| apt-get --purge remove 程序名                                | 删除某程序                                                   |                                                              |
+| hostname   -I                                                | 大写的i , 查本机ip                                           |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
 
 
 

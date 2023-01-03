@@ -1,0 +1,54 @@
+<div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-b3c43d3711.css">
+                <div id="content_views" class="markdown_views prism-atelier-sulphurpool-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <h3><a name="t0"></a><a id="A12Linux_0"></a>A.首先了解下1和2在Linux中代表什么</h3> 
+<p>在Linux系统中0 1 2是一个<a href="https://so.csdn.net/so/search?q=%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6&amp;spm=1001.2101.3001.7020" target="_blank" class="hl hl-1" data-report-view="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6&amp;spm=1001.2101.3001.7020&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;文件描述符\&quot;}&quot;}" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6&amp;spm=1001.2101.3001.7020&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;文件描述符\&quot;}&quot;}" data-tit="文件描述符" data-pretit="文件描述符">文件描述符</a></p> 
+<div class="table-box"><table><thead><tr><th>名称</th><th>代码</th><th>操作符</th><th>Java中表示</th><th>Linux 下文件描述符（Debian 为例)</th></tr></thead><tbody><tr><td>标准输入(stdin)</td><td>0</td><td>&lt; 或 &lt;&lt;</td><td><a href="http://System.in">System.in</a></td><td>/dev/stdin -&gt; /proc/self/fd/0 -&gt; /dev/pts/0</td></tr><tr><td>标准输出(stdout)</td><td>1</td><td>&gt;, &gt;&gt;, 1&gt; 或 1&gt;&gt;</td><td>System.out</td><td>/dev/stdout -&gt; /proc/self/fd/1 -&gt; /dev/pts/0</td></tr><tr><td>标准错误输出(stderr)</td><td>2</td><td>2&gt; 或 2&gt;&gt;</td><td>System.err</td><td>/dev/stderr -&gt; /proc/self/fd/2 -&gt; /dev/pts/0</td></tr></tbody></table></div>
+<p>上面表格引用自<a href="https://yanbin.blog/linux-input-output-redirection/">这里</a><br> 从上表看的出来，我们平时使用的</p> 
+<pre data-index="0" class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">echo "hello" &gt; t.log 
+<div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p>其实也可以写成</p> 
+<pre data-index="1" class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">echo "hello" 1&gt; t.log
+<div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<h3><a name="t1"></a><a id="B21_18"></a>B.关于2&gt;&amp;1的含义</h3> 
+<p>（关于输入/输出重定向本文就不细说了，不懂的可以参考<a href="http://www.runoob.com/linux/linux-shell-io-redirections.html">这里</a>，主要是要了解&gt; &lt; &lt;&lt; &gt;&gt; &lt;&amp; &gt;&amp; 这6个符号的使用）</p> 
+<ol><li>含义：<strong>将标准错误输出重定向到标准输出</strong></li><li><strong>符号&gt;&amp;是一个整体</strong>，不可分开，分开后就不是上述含义了。<br> 比如有些人可能会这么想：2是标准错误输入，1是标准输出，&gt;是重定向符号，那么"将标准错误输出重定向到标准输出"是不是就应该写成"2&gt;1"就行了？是这样吗？<br> 如果是尝试过，你就知道<strong>2&gt;1的写法其实是将标准错误输出重定向到名为"1"的文件里去了</strong></li><li>写成<strong>2&amp;&gt;1</strong>也是不可以的</li></ol> 
+<h3><a name="t2"></a><a id="C21_27"></a>C.为什么2&gt;&amp;1要放在后面</h3> 
+<p>考虑如下一条shell命令</p> 
+<pre data-index="2" class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">nohup java -jar app.jar &gt;log 2&gt;&amp;1 &amp;
+<div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p>(最后一个&amp;表示把条命令放到后台执行，不是本文重点，不懂的可以自行Google)<br> 为什么2&gt;&amp;1一定要写到&gt;log后面，才表示标准错误输出和标准输出都定向到log中？<br> 我们<strong>不妨把1和2都理解是一个指针</strong>,然后来看上面的语句就是这样的：</p> 
+<ol><li>本来1-----&gt;屏幕 （1指向屏幕）</li><li>执行&gt;log后， 1-----&gt;log (1指向log)</li><li>执行2&gt;&amp;1后， 2-----&gt;1 (2指向1，而1指向log,因此2也指向了log)</li></ol> 
+<p>再来分析下</p> 
+<pre data-index="3" class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">nohup java -jar app.jar 2&gt;&amp;1 &gt;log &amp;
+<div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<ol><li>本来1-----&gt;屏幕 （1指向屏幕）</li><li>执行2&gt;&amp;1后， 2-----&gt;1 (2指向1，而1指向屏幕,因此2也指向了屏幕)</li><li>执行&gt;log后， 1-----&gt;log (1指向log，2还是指向屏幕)<br> 所以这就不是我们想要的结果。</li></ol> 
+<p><strong>简单做个试验测试下上面的想法</strong>：<br> java代码如下：</p> 
+<pre data-index="4" class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">public class Htest {
+    public static void main(String[] args) {
+        System.out.println("out1");
+        System.err.println("error1");
+    }
+}
+<div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li><li style="color: rgb(153, 153, 153);">3</li><li style="color: rgb(153, 153, 153);">4</li><li style="color: rgb(153, 153, 153);">5</li><li style="color: rgb(153, 153, 153);">6</li></ul></pre> 
+<p>javac编译后运行下面指令：</p> 
+<pre data-index="5" class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">java Htest 2&gt;&amp;1 &gt; log
+<div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p>你会在终端上看到只输出了"error1"，log文件中则只有"out1"</p> 
+<h3><a name="t3"></a><a id="Dlog_21_66"></a>D.每次都写"&gt;log 2&gt;&amp;1"太麻烦，能简写吗？</h3> 
+<p>有以下两种简写方式</p> 
+<pre data-index="6" class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">&amp;&gt;log
+&gt;&amp;log
+<div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li><li style="color: rgb(153, 153, 153);">2</li></ul></pre> 
+<p>比如上面小节中的写法就可以简写为：</p> 
+<pre data-index="7" class="prettyprint"><code class="has-numbering" onclick="mdcp.copyCode(event)" style="position: unset;">nohup java -jar app.jar &amp;&gt;log &amp;
+<div class="hljs-button {2}" data-title="复制"></div></code><ul class="pre-numbering" style=""><li style="color: rgb(153, 153, 153);">1</li></ul></pre> 
+<p>上面两种方式都和"&gt;log 2&gt;&amp;1"一个语义。<br> 那么 上面两种方式中&amp;&gt;和&gt;&amp;有区别吗？<br> <strong>语义上是没有任何区别的，但是第一中方式是最佳选择，一般使用第一种</strong></p> 
+<p>参考：<br> <a href="https://unix.stackexchange.com/questions/89386/what-is-symbol-and-in-unix-linux">https://unix.stackexchange.com/questions/89386/what-is-symbol-and-in-unix-linux</a><br> <a href="https://superuser.com/questions/335396/what-is-the-difference-between-and-in-bash">https://superuser.com/questions/335396/what-is-the-difference-between-and-in-bash</a></p>
+                </div><div data-report-view="{&quot;mod&quot;:&quot;1585297308_001&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6548&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/zhaominpro/article/details/82630528&quot;,&quot;extend1&quot;:&quot;pc&quot;,&quot;ab&quot;:&quot;new&quot;}"><div></div></div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-22a2fefd3b.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-4f8fbf9108.css" rel="stylesheet">
+        </div>
