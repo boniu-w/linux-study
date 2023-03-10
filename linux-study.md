@@ -1185,6 +1185,33 @@ firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address=" 19
 
 
 
+### Ubuntu 防火墙
+
+Ubuntu 默认使用的是 `ufw` （Uncomplicated Firewall）作为防火墙
+
+在 Ubuntu 中，`ufw` 防火墙规则保存在 `/etc/ufw` 目录下。该目录包含以下文件和目录：
+
+- `/etc/ufw/ufw.conf` - `ufw` 的全局配置文件，包括默认行为和全局选项。
+- `/etc/ufw/applications.d/` - 包含为特定应用程序定义防火墙规则的文件的目录。
+- `/etc/ufw/before.rules` - 在 `ufw` 应用规则之前应用的规则。
+- `/etc/ufw/after.rules` - 在 `ufw` 应用规则之后应用的规则。
+- `/etc/ufw/before6.rules` - 在 `ufw` 应用 IPv6 规则之前应用的规则。
+- `/etc/ufw/after6.rules` - 在 `ufw` 应用 IPv6 规则之后应用的规则。
+
+如果您需要编辑 `ufw` 防火墙规则，建议备份这些文件，然后使用文本编辑器进行编辑。编辑后，您可以使用 `sudo ufw reload` 命令重新加载 `ufw` 防火墙规则
+
+| ubuntu  防火墙                  |                                                              |
+| ------------------------------- | ------------------------------------------------------------ |
+| sudo ufw allow <port>/tcp       | 添加或修改防火墙规则, 其中 `<port>` 是您要开放的端口号，例如 `80` 或 `22`。此命令将允许从外部网络访问您的计算机上的指定端口。 |
+| sudo ufw enable                 | 启用防火墙                                                   |
+| sudo ufw disable                | 禁用防火墙                                                   |
+| sudo ufw deny <port>/<protocol> | 禁止流量通过某个端口                                         |
+| sudo ufw status                 | 防火墙状态                                                   |
+|                                 |                                                              |
+|                                 |                                                              |
+|                                 |                                                              |
+|                                 |                                                              |
+
 
 
 # 8. ubuntu mysql
@@ -1436,8 +1463,8 @@ sudo cat /etc/mysql/debian.cnf
 | firewall-cmd --zone=public --remove-port=40000-45000/tcp --permanent | 批量关闭端口，关闭从40000到45000之间的所有端口               |                                                              |
 | apt-get --purge remove 程序名                                | 删除某程序                                                   |                                                              |
 | hostname   -I                                                | 大写的i , 查本机ip                                           |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
+| id  -g  <username>                                           | 查询用户的组id                                               |                                                              |
+| id -G <username>                                             | 查询该用户属于哪些其他组                                     |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
