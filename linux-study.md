@@ -4,6 +4,7 @@
 
 | <span style="white-space: nowrap">命令 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;&emsp;&emsp;&emsp;</span> | <span style="white-space: nowrap">说明 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;</span> | <span style="white-space: nowrap">例子 &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;</span> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ssh username@ip_address                                      | 连接主机,username是您的用户名，ip_address是您的Linux主机IP地址 |                                                              |
 | ps -ef\|grep 进程名                                          | 查看进程                                                     | ps -ef\|grep java                                            |
 | tail -f 文件名                                               | 查看文件详情                                                 | tail -f nohup.out                                            |
 | nohup java -jar jar包 > nohup.out 2>&1 &                     | jar包 部署命令 , jar包> 后面 有空格, 详见下方命令解释        | nohup java -jar mahua.jar   > nohup.out 2>&1 &               |
@@ -66,7 +67,7 @@
 | systemctl disable 服务名                                     | 禁止开机启动服务                                             |                                                              |
 | systemctl enable 服务名                                      | 开启开机启动服务                                             |                                                              |
 | shutdown -r now                                              | 立即重启                                                     |                                                              |
-| shutdown -h now                                              | 关机                                                         |                                                              |
+| shutdown -h now  或 init 0                                   | 关机                                                         |                                                              |
 | tcpdump -nn -i eth0 port 80                                  | -n : 转成数字;<br />-i : interface<br />80 : 百度的端口号    |                                                              |
 | cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime          | 修改 时区                                                    |                                                              |
 | date -s 时间                                                 | 修改时间                                                     | date -s '2000-12-12 12:12:12'                                |
@@ -130,20 +131,32 @@
 
 # 3. 缩写
 
-| 简写  | 全称                 | 解释                                                       |
-| ----- | -------------------- | ---------------------------------------------------------- |
-| su    | switch user          | 切换用户<br>使用su的缺点之一在于必须要先告知超级用户的密码 |
-| sudo  | switch user do       | sudo使一般用户不需要知道超级用户的密码即可获得权限         |
-| pwd   | print work direcory  | 打印工作目录, 显示当前位置                                 |
-| ps    | process status       | 进程状态                                                   |
-| rm    | remove               | 删除                                                       |
-| rmdir | remove directory     | 删除目录                                                   |
-| man   | manual               | 手册                                                       |
-| ln -s | link -soft           | 创建快捷方式                                               |
-| /usr  | unix shared resource | unix共享资源                                               |
-| /proc | processes            | 进程                                                       |
-| etc   |                      |                                                            |
-| nohup | no hang up           | 不挂断                                                     |
+| 简写  | 全称                 | 解释                                                         |
+| ----- | -------------------- | ------------------------------------------------------------ |
+| su    | switch user          | 切换用户<br>使用su的缺点之一在于必须要先告知超级用户的密码   |
+| sudo  | switch user do       | sudo使一般用户不需要知道超级用户的密码即可获得权限           |
+| pwd   | print work direcory  | 打印工作目录, 显示当前位置                                   |
+| ps    | process status       | 进程状态 ,进程信息虚拟文件系统，提供了对进程和内核状态的访问接口。 |
+| rm    | remove               | 删除                                                         |
+| rmdir | remove directory     | 删除目录                                                     |
+| man   | manual               | 手册                                                         |
+| ln -s | link -soft           | 创建快捷方式                                                 |
+| /usr  | unix shared resource | unix共享资源                                                 |
+| /proc | processes            | 进程                                                         |
+| etc   | et cetera            | 存放系统中所有主要配置文件，如网络配置、用户账号信息等。     |
+| nohup | no hang up           | 不挂断                                                       |
+| opt   | optional             | 用于存放可选的第三方应用程序，如 Oracle 数据库、Adobe 软件等。 |
+| var   | variable             | 动态数据，包括日志文件、缓存数据、邮件等。                   |
+|       |                      |                                                              |
+|       |                      |                                                              |
+|       |                      |                                                              |
+|       |                      |                                                              |
+|       |                      |                                                              |
+|       |                      |                                                              |
+|       |                      |                                                              |
+|       |                      |                                                              |
+|       |                      |                                                              |
+|       |                      |                                                              |
 
 
 
@@ -1023,6 +1036,8 @@ systemctl disable redis.service  #停止开机自启动
 
 # 5. 命令解释
 
+## 1. java 程序启动命令
+
 1. ```shell
     nohup java -jar tientsineye.jar > tientsineye.out 2>&1 &
    ```
@@ -1054,13 +1069,43 @@ systemctl disable redis.service  #停止开机自启动
 
 
 
+## 2. echo
+
+```
+#!/bin/bash
+echo "Hello"
+echo "World"
+exec "$@"
+```
+
+```
+这是一个 Bash 脚本，包含三个命令行操作：
+
+echo "Hello": 打印出 "Hello" 这个字符串。
+echo "World": 打印出 "World" 这个字符串。
+exec "$@": 执行传入的命令行参数。
+这个脚本的作用是先打印出 "Hello" 和 "World" 这两个字符串，然后执行传入的命令行参数。"$@" 是一个特殊的变量，表示所有的命令行参数，通过 $ 和 @ 组合而成。因此，当你在运行这个脚本时，可以在后面加上任意数量的命令行参数，并且这些参数会被传递到 exec 命令的位置，从而执行相应的命令。
+```
 
 
 
 
 
+## 3. ">>"
 
+这个符号
 
+`>>` 是 Shell 中的追加输出符号，与 `>` 的作用不同，`>` 会将原来的文件内容清空并重新写入新的内容。
+
+```
+echo "sdfsd" >> wg.txt
+```
+
+这条命令的作用是将字符串 "sdfsd" 追加到文件 wg.txt 的末尾，而不会覆盖已有的内容。`>>` 是 Shell 中的追加输出符号，与 `>` 的作用不同，`>` 会将原来的文件内容清空并重新写入新的内容。
+
+如果 wg.txt 文件不存在，则该命令将自动创建一个新文件，并在其中添加字符串 "sdfsd"。如果 wg.txt 已经存在，则会将字符串追加到文件末尾，而不影响原有的内容。
+
+需要注意的是，如果文件已经被其他进程打开，在进行追加操作时可能会出现并发访问问题。为了避免这种情况，可以使用文件锁或其他同步机制来保证安全性
 
 
 
@@ -1374,15 +1419,16 @@ sudo cat /etc/mysql/debian.cnf
 
 # 13. 文件命令
 
+## 1. command
 
-
-| command                                 |                                                |                                              |
+| command                                 | description                                    | example                                      |
 | --------------------------------------- | ---------------------------------------------- | -------------------------------------------- |
 | touch 新文件                            | 新建文件                                       |                                              |
 | find (/查找范围) -name 文件名[文件夹名] | 查找文件                                       | find home -name nginx<br>find / -name nginx; |
 | rm -rf \<文件 目录>                     | 强力删除, 不要求确认                           |                                              |
-| rmdir 文件夹名                          |                                                |                                              |
-| rm 文件名                               |                                                |                                              |
+| rmdir 文件夹名                          | 删除文件夹                                     |                                              |
+| rm 文件名                               | 删除文件                                       |                                              |
+| rm -r 文件夹名                          | 递归删除文件夹及下面的所有文件和文件夹         |                                              |
 | mv 原文件名 修改后的文件名              | 修改文件名                                     |                                              |
 | unzip zip文件名                         | 解压zip文件                                    |                                              |
 | unzip -d 指定目录名 要解压的文件        | -d 后接目录： 指定文件解压缩后所要存储的目录； | unzip  -d  /home/wg  test.jar                |
@@ -1411,6 +1457,54 @@ sudo cat /etc/mysql/debian.cnf
 |                                         |                                                |                                              |
 |                                         |                                                |                                              |
 |                                         |                                                |                                              |
+
+
+
+## 2. tail
+
+`tail` 命令通常用于查看文件的末尾内容，以下是 `tail` 命令的一些常见用法及参数解释：
+
+1. 查看文件末尾内容
+
+```
+tail filename
+```
+
+该命令会在终端输出文件末尾的最后 10 行内容（默认值）。
+
+1. 实时浏览文件变化
+
+```
+tail -f filename
+```
+
+该命令会打开文件，并持续输出新添加到文件末尾的内容。适用于需要实时监控日志等情景。
+
+1. 显示指定数量的行数
+
+```
+tail -n [number] filename
+```
+
+该命令会显示指定数量 [number] 的行数（例如 -n 20 则显示文件末尾的最后 20 行内容）。
+
+1. 从文件头开始显示内容
+
+```
+tail -r filename
+```
+
+该命令会从文件头开始显示内容，而不是文件尾。一般会和 `-n` 参数一起使用，如 `tail -n 20 -r filename`。
+
+1. 组合使用多个参数
+
+```
+tail -fn [number] filename
+```
+
+该命令组合了 `-f` 和 `-n` 参数，在实时浏览文件变化的同时，也限制了回显的最大行数。
+
+除了上述参数外，`tail` 还有很多其他用法，可通过 `man tail` 命令查看完整帮助文档
 
 
 
@@ -1899,3 +1993,23 @@ ls -l [文件名]
 竖线|：用于分隔多个互斥参数，含义为“或”，使用时只能选择一个。
 
 省略号…：任意多个参数。
+
+
+
+# 18. 符号
+
+## 1. ">>"
+
+这个符号
+
+`>>` 是 Shell 中的追加输出符号，与 `>` 的作用不同，`>` 会将原来的文件内容清空并重新写入新的内容。
+
+```
+echo "sdfsd" >> wg.txt
+```
+
+这条命令的作用是将字符串 "sdfsd" 追加到文件 wg.txt 的末尾，而不会覆盖已有的内容。`>>` 是 Shell 中的追加输出符号，与 `>` 的作用不同，`>` 会将原来的文件内容清空并重新写入新的内容。
+
+如果 wg.txt 文件不存在，则该命令将自动创建一个新文件，并在其中添加字符串 "sdfsd"。如果 wg.txt 已经存在，则会将字符串追加到文件末尾，而不影响原有的内容。
+
+需要注意的是，如果文件已经被其他进程打开，在进行追加操作时可能会出现并发访问问题。为了避免这种情况，可以使用文件锁或其他同步机制来保证安全性
