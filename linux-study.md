@@ -1,3 +1,13 @@
+debian:
+
+环境变量文件: /etc/enviroment
+
+useradd 所在 /usr/sbin/useradd
+
+
+
+CI/CD: Continuous Integration/Continuous Delivery (or Deployment)
+
 # 1. 一些命令
 
 
@@ -1508,6 +1518,10 @@ tail -fn [number] filename
 
 
 
+## 3. grep
+
+`grep` 是一种文本搜索工具，用于在文件中查找指定字符串或正则表达式，并将匹配行输出到终端或保存在文件中。它的名称来自于 "global regular expression print" 的缩写。通常用法是结合管道符使用其他命令，如 `ls | grep "txt"` 匹配以 "txt" 结尾的文件并输出结果列表。
+
 # 14. 网络命令
 
   
@@ -2013,3 +2027,28 @@ echo "sdfsd" >> wg.txt
 如果 wg.txt 文件不存在，则该命令将自动创建一个新文件，并在其中添加字符串 "sdfsd"。如果 wg.txt 已经存在，则会将字符串追加到文件末尾，而不影响原有的内容。
 
 需要注意的是，如果文件已经被其他进程打开，在进行追加操作时可能会出现并发访问问题。为了避免这种情况，可以使用文件锁或其他同步机制来保证安全性
+
+
+
+# 19. gitlab-runner 安装
+
+```
+# Linux x86-64
+sudo curl -L --output /usr/local/bin/gitlab-runner "https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64"
+
+sudo chmod +x /usr/local/bin/gitlab-runner
+
+sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
+
+sudo gitlab-runner install --working-directory=/home/gitlab-runner
+sudo gitlab-runner start
+
+gitlab-runner register --url http://gitlab.sevenme.com/ --registration-token GR1348941zeUGWbz5-uUQZmdnVYYt
+```
+
+
+
+
+
+
+
