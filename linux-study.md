@@ -1522,6 +1522,31 @@ tail -fn [number] filename
 
 `grep` 是一种文本搜索工具，用于在文件中查找指定字符串或正则表达式，并将匹配行输出到终端或保存在文件中。它的名称来自于 "global regular expression print" 的缩写。通常用法是结合管道符使用其他命令，如 `ls | grep "txt"` 匹配以 "txt" 结尾的文件并输出结果列表。
 
+
+
+## 4. qa
+
+1. 文件夹上带个箭头是啥意思?
+
+
+   在Ubuntu中，当文件夹上有一个箭头，通常表示该文件夹是一个符号链接（symbolic link）或者软链接（soft link）。符号链接是一种特殊类型的文件，它包含指向另一个文件或文件夹的路径。当您点击这个带箭头的文件夹时，实际上会打开链接所指向的目标文件夹。
+
+   符号链接提供了一种在文件系统中创建指向其他文件或目录的快捷方式的方式。它们允许您创建一个指向另一个位置的链接，使得您可以方便地访问其他位置的文件或文件夹，而无需在不同位置复制文件。
+
+   当您在Ubuntu中创建一个符号链接时，文件夹图标上就会显示一个箭头，以区分它们与普通文件夹的不同。这样您可以快速辨认出它是一个链接，而不是一个实际的文件夹。
+
+   请注意，符号链接可以是相对路径或绝对路径。相对路径是相对于当前位置的路径，而绝对路径是从根目录开始的完整路径。这取决于您创建符号链接时使用的路径。
+
+2. 那这个带箭头的文件里面的内容 占用空间吗?
+
+   在Ubuntu中，带箭头的文件夹是一个符号链接或软链接，它只是指向另一个位置的路径，并不包含实际的文件或文件夹内容。因此，它本身并不占用空间。
+
+   当您打开带箭头的文件夹并访问链接所指向的目标位置时，您会看到目标位置中的文件和文件夹内容，并且它们会占用磁盘空间。实际的文件或文件夹内容位于目标位置，而不是带箭头的文件夹本身。
+
+   因此，带箭头的文件夹只是一个指向其他位置的路径引用，不会占用额外的空间。它只是提供了一个方便的方式来访问其他位置的文件或文件夹。
+
+3. 
+
 # 14. 网络命令
 
   
@@ -1573,7 +1598,7 @@ tail -fn [number] filename
 | hostname   -I                                                | 大写的i , 查本机ip                                           |                                                              |
 | id  -g  <username>                                           | 查询用户的组id                                               |                                                              |
 | id -G <username>                                             | 查询该用户属于哪些其他组                                     |                                                              |
-|                                                              |                                                              |                                                              |
+| uname  -a                                                    | 查询系统内核版本和主机名等信息                               |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
@@ -2048,7 +2073,40 @@ gitlab-runner register --url http://gitlab.sevenme.com/ --registration-token GR1
 
 
 
+# 20. k8s安装
+
+安装 kubectl
+
+```shell
+curl -LO https://dl.k8s.io/release/v1.27.1/bin/linux/amd64/kubectl
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+kubectl completion bash
+kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+sudo chmod a+r /etc/bash_completion.d/kubectl
+```
 
 
+
+安装 kubectl-convert 插件
+
+```
+# 安装文件
+curl -LO "https://dl.k8s.io/release/v1.27.1/bin/linux/amd64/kubectl-convert"
+
+# 验证文件
+curl -LO "https://dl.k8s.io/v1.27.1/bin/linux/amd64/kubectl-convert.sha256"
+
+# 验证命令
+echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
+
+# 安装
+sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
+
+# 验证是否成功
+kubectl convert --help
+
+# 完成后, 删除安装文件
+rm kubectl-convert kubectl-convert.sha256
+```
 
 
