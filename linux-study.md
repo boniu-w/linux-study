@@ -19,7 +19,7 @@ CI/CD: Continuous Integration/Continuous Delivery (or Deployment)
 | tail -f 文件名                                               | 查看文件详情                                                 | tail -f nohup.out                                            |
 | nohup java -jar jar包 > nohup.out 2>&1 &                     | jar包 部署命令 , jar包> 后面 有空格, 详见下方命令解释        | nohup java -jar mahua.jar   > nohup.out 2>&1 &               |
 | kill -9 进程号                                               | 杀 进程, 不给反应时间的杀                                    |                                                              |
-| find (/查找范围) -name 文件名/文件夹名                       | 查找文件                                                     | find home -name nginx<br>find / -name nginx;                 |
+| find (/查找范围) -name 文件名/文件夹名 [-type d]             | 查找文件 [-type d] 指定查找类型为文件夹                      | find home -name nginx<br>find / -name nginx;                 |
 | pwd                                                          | 查看当前位置                                                 |                                                              |
 | q                                                            | 不保存退出                                                   |                                                              |
 | wq                                                           | 保存后退出                                                   |                                                              |
@@ -78,13 +78,13 @@ CI/CD: Continuous Integration/Continuous Delivery (or Deployment)
 | systemctl enable 服务名                                      | 开启开机启动服务                                             |                                                              |
 | shutdown -r now                                              | 立即重启                                                     |                                                              |
 | shutdown -h now  或 init 0                                   | 关机                                                         |                                                              |
-| tcpdump -nn -i eth0 port 80                                  | -n : 转成数字;<br />-i : interface<br />80 : 百度的端口号    |                                                              |
+| tcpdump -nn -i eth0 port 80                                  | 用于网络数据包捕获<br />-nn : 这个选项告诉 tcpdump 不要进行 DNS 反向解析。第一个 `n` 表示以数字形式显示 IP 地址，而不是尝试将其解析为主机名；第二个 `n` 表示端口号也直接以数字形式显示，不转换为服务名称。这样可以加快输出速度并避免因 DNS 查找导致的延迟<br />-i : 指定了要监听的网络接口。在这个例子中，`eth0` 代表第一个以太网接口。如果你的系统有不同的网络接口，这里的 `eth0` 应替换为你实际要监控的接口名称<br />prot 80 : 这是一个过滤条件，表示只捕获目标端口或源端口为 80 的数据包。端口 80 通常是 HTTP 协议的默认端口，因此这个命令会捕获所有进出的 HTTP 流量 |                                                              |
 | cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime          | 修改 时区                                                    |                                                              |
 | date -s 时间                                                 | 修改时间                                                     | date -s '2000-12-12 12:12:12'                                |
 | mv 文件[夹]a  文件[夹]b                                      | 重命名文件夹                                                 |                                                              |
 | mysql  -u   用户名  -p  <数据库名>                           | 进入mysql                                                    |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
+| redis-cli ping                                               | 查看redis 连接状态                                           |                                                              |
+| timedatectl                                                  | 查看时区                                                     |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
@@ -124,7 +124,7 @@ CI/CD: Continuous Integration/Continuous Delivery (or Deployment)
 | sbin                    | s就是Super User的意思，/sbin目录类似/bin ，也用于存储二进制文件。     但其中的大部分文件多是系统管理员使用的基本的系统管理程序     所以虽然普通用户必要且允许时可以使用，但一般不给普通用户使用。 |
 | root                    | 系统管理员(超级用户或根用户)的主目录                         |
 | dev                     | 这个目录下是所有LINUX的外部设备文件，其功能类似DOS下的.sys和Win下的.vxd，用户可以通过这些文件访问外部设备，在LINUX中设备和文件是用同种方法访问的。例如:/dev/hda代表第一个物理IDE硬盘 |
-| usr                     | 要用到的应用程序和文件几乎都在这个目录                       |
+| usr                     | "usr" 是 "User System Resources" 的缩写，意思是 “用户系统资源”。它是一个非常重要的文件夹，包含了许多应用程序和文件，以及一些用于支持系统的文件。此外，“usr”文件夹中的内容通常不会被修改，并且会在操作系统更新时得到保留。 |
 | /usr/share/applications | 桌面图标的位置                                               |
 | /lib                    | apt 安装的程序 如 jvm mysql  都在这个文件夹下                |
 |                         |                                                              |
@@ -1060,11 +1060,11 @@ systemctl disable redis.service  #停止开机自启动
 
 | command                                   | describle                                                    |
 | ----------------------------------------- | ------------------------------------------------------------ |
-| nohup                                     | 守护进程                                                     |
+| nohup                                     | 守护进程 "no hung up": 没有挂断                              |
 | java -Duser.timezone=GMT+8  -jar *.jar    | jar包启动, 使用 东八区区时, centos7 有这个问题, java 程序获取的时间 不对应 |
 | --spring.config.location=配置文件(带路径) | 指定jar包读取的外部的配置文件                                |
 | \>*.log                                   | 日志输出位置                                                 |
-| 2>&1 &                                    | 2>&1是将标准错误（2）重定向到标准输出（&1），标准输出（&1）再被重定向输入到*.log文件中。 |
+| 2>&1                                      | 2>&1是将标准错误（2）重定向到标准输出（&1），标准输出（&1）再被重定向输入到*.log文件中。 |
 | &                                         | 守护进程(仅当前连接linux终端用户在线时，一旦该用户断开连接，项目将自动停止，因此需要使用nohup) |
 
 
@@ -1567,6 +1567,7 @@ tail -fn [number] filename
 
 | command                                                      |                                                              |                                                              |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| lsb_release -a                                               | 查看ubuntu版本                                               |                                                              |
 | dpkg                                                         | Debian Packager ”的简写, 为 “Debian” 专门开发的套件管理系统，方便软件的安装、更新及移除, 所有源自“Debian”的“Linux ”发行版都使用 “dpkg”，例如 “Ubuntu”、“Knoppix ”等。 |                                                              |
 | apt                                                          | Advanced Package Tool, 命令并不直接操作 deb 安装包文件，而是从 /etc/apt/sources.list 配置文件中定义的软件镜像源里下载软件包并安装，使用时也只需指定软件的名称（或者也可以附加上版本号）。**因此，dpkg 主要是用来安装已经下载到本地的 deb 软件包，或者对已经安装好的软件进行管理。而 apt-get 可以直接从远程的软件仓库里下载安装软件** |                                                              |
 | systemd-analyze blame                                        | 查看开机启动项                                               |                                                              |
@@ -1599,6 +1600,22 @@ tail -fn [number] filename
 | id  -g  <username>                                           | 查询用户的组id                                               |                                                              |
 | id -G <username>                                             | 查询该用户属于哪些其他组                                     |                                                              |
 | uname  -a                                                    | 查询系统内核版本和主机名等信息                               |                                                              |
+| 1. halt 立刻关机 
+<br/>2. poweroff 立刻关机
+
+3. shutdown -h now 立刻关机(root用户使用)
+
+4. shutdown -h 10 10分钟后自动关机 如果是通过shutdown命令设置关机的话，可以用shutdown -c命令取消重启 
+
+5. init 0 | 关机                                                         |                                                              |
+| 1. reboot 
+<br/>2. shutdown -r now 立刻重启(root用户使用)
+
+3. shutdown -r 10 过10分钟自动重启(root用户使用)
+
+4. shutdown -r 20:35 在时间为20:35时候重启(root用户使用) 如果是通过shutdown命令设置重启的话，可以用shutdown -c命令取消重启 
+
+5. init 1 | 重启                                                         |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
@@ -1614,6 +1631,24 @@ tail -fn [number] filename
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+|                                                              |                                                              |                                                              |
+
 
 
 
@@ -2110,3 +2145,32 @@ rm kubectl-convert kubectl-convert.sha256
 ```
 
 
+
+# 21. java 切换版本
+
+1. 查询
+
+   ```
+   sudo update-alternatives --display java
+   ```
+
+2. 切换
+
+   ```
+   sudo update-alternatives --config java
+   ```
+
+3. edit /etc/profile
+
+4. 如果找不到 
+
+   ```
+   which java
+   /usr/bin/java
+   ls -lrt /usr/bin/java
+   /usr/bin/java -> /etc/alternatives/java
+   ls -lrt /etc/alternatives/java
+   /etc/alternatives/java -> /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+   ```
+
+   
