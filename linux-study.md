@@ -76,8 +76,14 @@ CI/CD: Continuous Integration/Continuous Delivery (or Deployment)
 | sudo apt-get -f install                                      | 修复依赖包                                                   |                                                              |
 | systemctl disable 服务名                                     | 禁止开机启动服务                                             |                                                              |
 | systemctl enable 服务名                                      | 开启开机启动服务                                             |                                                              |
-| shutdown -r now                                              | 立即重启                                                     |                                                              |
-| shutdown -h now  或 init 0                                   | 关机                                                         |                                                              |
+| shutdown -r now [reboot]                                     | 立即重启                                                     |                                                              |
+| shutdown -r 20:35 [shutdown -r 10 (10分钟后重启)]            | 在时间为20:35时候重启(root用户使用) 如果是通过shutdown命令设置重启的话，可以用shutdown -c命令取消重启 |                                                              |
+| shutdown -h now  [halt, poweroff, init 0]                    | 关机                                                         |                                                              |
+| shutdown -h 10                                               | 10分钟后关机                                                 |                                                              |
+| reboot[shutdown -r now, init 1]                              | 立刻重启                                                     |                                                              |
+| shutdown -r 10                                               | 10分钟后重启, 可以用shutdown -c命令取消重启                  |                                                              |
+| shutdown -r 20:35                                            | 在某个时刻重启, 可以用shutdown -c命令取消重启                |                                                              |
+| shutdown -c                                                  | 如果是通过shutdown命令设置关机的话，可以用shutdown -c命令取消重启 |                                                              |
 | tcpdump -nn -i eth0 port 80                                  | 用于网络数据包捕获<br />-nn : 这个选项告诉 tcpdump 不要进行 DNS 反向解析。第一个 `n` 表示以数字形式显示 IP 地址，而不是尝试将其解析为主机名；第二个 `n` 表示端口号也直接以数字形式显示，不转换为服务名称。这样可以加快输出速度并避免因 DNS 查找导致的延迟<br />-i : 指定了要监听的网络接口。在这个例子中，`eth0` 代表第一个以太网接口。如果你的系统有不同的网络接口，这里的 `eth0` 应替换为你实际要监控的接口名称<br />prot 80 : 这是一个过滤条件，表示只捕获目标端口或源端口为 80 的数据包。端口 80 通常是 HTTP 协议的默认端口，因此这个命令会捕获所有进出的 HTTP 流量 |                                                              |
 | cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime          | 修改 时区                                                    |                                                              |
 | date -s 时间                                                 | 修改时间                                                     | date -s '2000-12-12 12:12:12'                                |
@@ -127,7 +133,7 @@ CI/CD: Continuous Integration/Continuous Delivery (or Deployment)
 | usr                     | "usr" 是 "User System Resources" 的缩写，意思是 “用户系统资源”。它是一个非常重要的文件夹，包含了许多应用程序和文件，以及一些用于支持系统的文件。此外，“usr”文件夹中的内容通常不会被修改，并且会在操作系统更新时得到保留。 |
 | /usr/share/applications | 桌面图标的位置                                               |
 | /lib                    | apt 安装的程序 如 jvm mysql  都在这个文件夹下                |
-|                         |                                                              |
+| /opt                    | 主要用于安装可选的应用程序包。这里的“opt”可以理解为“optional”（可选的）。这个目录通常用于存放那些非标准的、由第三方提供的软件包，这些软件包不是系统默认安装的一部分 |
 |                         |                                                              |
 |                         |                                                              |
 |                         |                                                              |
@@ -1600,55 +1606,10 @@ tail -fn [number] filename
 | id  -g  <username>                                           | 查询用户的组id                                               |                                                              |
 | id -G <username>                                             | 查询该用户属于哪些其他组                                     |                                                              |
 | uname  -a                                                    | 查询系统内核版本和主机名等信息                               |                                                              |
-| 1. halt 立刻关机 
-<br/>2. poweroff 立刻关机
-
-3. shutdown -h now 立刻关机(root用户使用)
-
-4. shutdown -h 10 10分钟后自动关机 如果是通过shutdown命令设置关机的话，可以用shutdown -c命令取消重启 
-
-5. init 0 | 关机                                                         |                                                              |
-| 1. reboot 
-<br/>2. shutdown -r now 立刻重启(root用户使用)
-
-3. shutdown -r 10 过10分钟自动重启(root用户使用)
-
-4. shutdown -r 20:35 在时间为20:35时候重启(root用户使用) 如果是通过shutdown命令设置重启的话，可以用shutdown -c命令取消重启 
-
-5. init 1 | 重启                                                         |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-
 
 
 
