@@ -1455,6 +1455,7 @@ sudo cat /etc/mysql/debian.cnf
 | shopt -s extglob                        | 开启 删除 除了 -s 开启 -u关闭                  |                                              |
 | rm -f !(a)                              | 先执行上面的命令删除除了 a 之外的所有文件      |                                              |
 | cp   -r  /home/wg/nacos   /usr/nacos    | 复制文件夹 -r 表示 递归复制                    |                                              |
+| df -h                                   | 显示系统的磁盘情况                             |                                              |
 |                                         |                                                |                                              |
 |                                         |                                                |                                              |
 |                                         |                                                |                                              |
@@ -1472,7 +1473,22 @@ sudo cat /etc/mysql/debian.cnf
 |                                         |                                                |                                              |
 |                                         |                                                |                                              |
 |                                         |                                                |                                              |
-|                                         |                                                |                                              |
+
+
+
+### 1. df -h
+
+**df -h命令用于显示文件系统的磁盘使用情况，其中-h参数表示以人类可读的格式（如‌GB、‌MB、‌KB）显示磁盘空间的使用情况。**‌‌12
+
+`df`命令是‌[Linux](https://www.baidu.com/s?wd=Linux&rsv_idx=2&tn=baiduhome_pg&usm=4&ie=utf-8&rsv_pq=fbfcf29a00018c52&oq=df%20-h%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D&rsv_t=3852iYj32lK2wUnz3FwXaSrBUsjtlVJ5lzNVPFShs5WFumk3hv1qeSY%2FROqclI0YGOyg&sa=re_dqa_generate)系统中用于显示文件系统的磁盘使用情况的基本命令。当使用`-h`参数时，`df`命令会以一种更易于理解的方式显示磁盘空间的使用情况，而不是仅仅显示数字。这种显示方式对于非技术用户来说更加友好，因为它将磁盘空间的大小转换成了更直观的单位，如GB、MB或KB，从而使得用户可以更容易地理解他们的磁盘空间使用情况。
+
+此外，`df`命令还有其他一些有用的选项和参数，例如：
+
+- `-a`：显示所有文件系统的磁盘使用情况，包括隐藏文件系统。
+- `-B`：指定显示时的块大小，例如1k、1m等。
+- `-i`：显示inode的使用情况，而不是磁盘空间的使用情况。
+
+这些选项和参数可以进一步帮助用户详细了解他们的文件系统的状态。通过结合使用这些选项，用户可以获得关于其Linux系统磁盘空间的全面信息。
 
 
 
@@ -1606,10 +1622,10 @@ tail -fn [number] filename
 | id  -g  <username>                                           | 查询用户的组id                                               |                                                              |
 | id -G <username>                                             | 查询该用户属于哪些其他组                                     |                                                              |
 | uname  -a                                                    | 查询系统内核版本和主机名等信息                               |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
-|                                                              |                                                              |                                                              |
+| systemctl list-units --type=service                          | 列出所有正在运行的服务                                       |                                                              |
+| systemctl  list-unit-files  --type=service                   | 列出所有可用服务                                             |                                                              |
+| service --status-all                                         | 所有已安装服务的状态                                         |                                                              |
+| df -h                                                        | 系统磁盘情况                                                 |                                                              |
 
 
 
@@ -1962,6 +1978,20 @@ ps -ef | grep redis
 
 中间的|是管道命令 是指ps命令与grep同时执行
 ```
+
+
+
+### 5. aux
+
+`ps aux` 是一个在Unix和Linux系统中常用的命令组合，用于显示系统中所有进程的信息。这里的 `aux` 实际上并不是一个单独的命令，而是 `ps` 命令的一个选项集，用来控制 `ps` 输出的内容和格式。下面是 `aux` 各个字母代表的意义：
+
+- **a**: 显示所有进程，不仅仅是属于当前终端的进程。
+- **u**: 以用户友好的长格式输出，包含更多的细节，比如用户名、CPU和内存使用百分比等。
+- **x**: 显示没有控制终端的进程。
+
+因此，`ps aux` 命令会显示系统中所有进程的详细信息，包括但不限于进程ID (PID)、所属用户 (USER)、父进程ID (PPID)、优先级 (PRI)、NI值（nice value）、虚拟内存大小 (VSZ)、物理内存大小 (RSS)、进程状态 (STAT)、启动时间 (START)、运行时间 (TIME)、命令 (COMMAND) 等。
+
+
 
 
 
