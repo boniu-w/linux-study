@@ -1,0 +1,14 @@
+
+卸载 pnpm
+npm uninstall -g pnpm
+corepack disable pnpm
+rm -rf $(which pnpm)
+rm -rf ~/.local/share/pnpm
+rm -rf ~/.pnpm-store
+rm -f ~/.config/pnpm/rc
+rm -f ~/.pnpmrc
+rm -rf ~/.config/pnpm
+rm -rf ~/.cache/pnpm
+
+# find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
+

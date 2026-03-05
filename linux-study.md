@@ -92,7 +92,7 @@ CI/CD: Continuous Integration/Continuous Delivery (or Deployment)
 | redis-cli ping                                               | 查看redis 连接状态                                           |                                                              |
 | timedatectl                                                  | 查看时区                                                     |                                                              |
 | snap list                                                    | 查看通过snap安装的软件                                       |                                                              |
-|                                                              |                                                              |                                                              |
+| --install-daemon                                             | 注册为守护进程                                               | openclaw onboard --install-daemon                            |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
@@ -1125,6 +1125,23 @@ echo "sdfsd" >> wg.txt
 
 
 
+
+
+## 4. wget -qO- https://pyenv.run | bash 解析
+
+这个命令是用于安装 `pyenv` 工具的一行命令，下面是详细解析：
+
+1. **wget**：是一个用于从网络上下载文件的命令行工具
+2. **-qO-**：这是 `wget` 的选项组合
+   - `-q`：安静模式（quiet），不显示下载进度等信息
+   - `-O-`：将下载的内容输出到标准输出（stdout）而不是保存为文件（`-O` 表示输出文件，`-` 表示标准输出）
+3. **https://pyenv.run**：这是 `pyenv` 官方提供的安装脚本地址，访问该地址会返回 `pyenv` 的安装脚本
+4. **|**：管道符，将左边命令的输出作为右边命令的输入
+5. **bash**：Unix/Linux 系统的命令解释器，这里用于执行通过管道传来的安装脚本
+
+整个命令的作用是：
+从 `https://pyenv.run` 下载 `pyenv` 的安装脚本，并立即通过 `bash` 执行该脚本，从而完成 `pyenv` 的安装。
+
 # 6. centos7 安装 postgresql
 
 1、安装rpm文件（可以到官网核定你的版本情况和路径，如果是11版，下面的都需要调整一下）
@@ -1567,7 +1584,17 @@ tail -fn [number] filename
 
    因此，带箭头的文件夹只是一个指向其他位置的路径引用，不会占用额外的空间。它只是提供了一个方便的方式来访问其他位置的文件或文件夹。
 
-3. 
+
+
+
+## 5. some
+
+```bash
+which code # 查找vscode 安装位置
+
+```
+
+
 
 # 14. 网络命令
 
@@ -2278,3 +2305,90 @@ dpkg -l package_name
 | 适用场景 | 稳定、轻量、系统集成 | 最新版本、跨发行版、安全隔离 |
 
 **建议**：日常使用中可结合两者优势 —— 系统基础工具用 APT 安装以保证稳定和轻量，而需要最新版本或避免依赖问题的软件（如 DBeaver、VS Code）用 Snap 安装更方便
+
+
+
+## 24. 概念解释
+
+## 1. bash shell dash
+
+在 Linux 系统中，`bash`、`shell`、`dash` 是三个密切相关但又有区别的概念，理解它们的关系和差异有助于更好地使用 Linux 命令行。下面详细解析：
+
+### 一、核心概念：什么是 Shell？
+
+**shell（壳）** 是用户与操作系统内核（Kernel）之间的交互接口，它接收用户输入的命令，解析后传递给内核执行，并将结果返回给用户。简单说，**shell 是命令行解释器的统称**，常见的 shell 包括 `bash`、`dash`、`zsh`、`ksh` 等。
+
+- 类比：内核是汽车发动机，shell 是方向盘和油门（用户通过它控制发动机）。
+- 我们平时在终端（Terminal）中输入命令时，实际就是在与某个 shell 交互。
+
+### 二、Bash：最常用的 shell
+
+**bash（Bourne Again SHell）** 是 Linux 系统中最流行的 shell，由 GNU 项目开发，是 `sh`（Bourne Shell，早期经典 shell）的增强版。
+
+#### 特点：
+
+- **兼容性**：兼容 `sh` 的语法，同时增加了大量扩展功能。
+- **功能丰富**：支持命令历史（上下键查看）、命令补全（Tab 键）、别名（`alias`）、函数、条件判断、循环等高级特性。
+- **默认 shell**：大多数 Linux 发行版（如 Ubuntu、CentOS）默认的用户 shell 就是 bash。
+- **脚本支持**：`.sh` 脚本通常默认用 bash 执行（脚本开头 `#!/bin/bash` 声明）。
+
+#### 查看当前 shell:
+
+```bash
+echo $SHELL  # 输出如 /bin/bash 表示当前是bash
+```
+
+
+
+### 三、Dash：轻量高效的 shell
+
+**dash（Debian Almquist Shell）** 是一个轻量级、高效的 shell，基于 `ash`（Almquist Shell）开发，专为脚本执行优化。
+
+#### 特点：
+
+- **轻量快速**：比 bash 更小巧，启动速度快，资源占用低，适合执行脚本。
+- **兼容性**：仅兼容 `sh` 的标准语法，不支持 bash 的扩展功能（如某些数组语法、高级参数展开）。
+- **Ubuntu 的特殊角色**：在 Ubuntu 系统中，`/bin/sh` 这个符号链接默认指向 `dash`（而非 bash），目的是加快系统脚本的执行速度（系统启动时会运行大量脚本）。
+
+#### 验证 Ubuntu 中`/bin/sh`的指向：
+
+```bash
+ls -l /bin/sh  # 输出通常为 lrwxrwxrwx 1 root root 4 ... /bin/sh -> dash
+```
+
+
+
+### 四、bash 与 dash 的核心区别
+
+| 维度     | bash                             | dash                               |
+| -------- | -------------------------------- | ---------------------------------- |
+| 定位     | 交互式使用（用户操作）+ 脚本执行 | 主要用于执行脚本（尤其是系统脚本） |
+| 功能     | 丰富（扩展语法、交互特性）       | 精简（仅支持 sh 标准语法）         |
+| 速度     | 较慢（功能多，启动开销大）       | 较快（轻量，适合批量脚本）         |
+| 兼容性   | 兼容 sh，支持更多扩展            | 严格遵循 sh 标准，不支持 bash 扩展 |
+| 默认角色 | 用户默认登录 shell               | Ubuntu 中`/bin/sh`的默认指向       |
+
+### 五、常见问题与解决
+
+1. **脚本在 bash 中能运行，在 dash 中报错？**
+   原因：脚本使用了 bash 的扩展语法（如 `[[ ]]` 条件判断、数组 `arr=(1 2 3)` 等），而 dash 不支持。
+   解决：
+
+   - 脚本开头声明用 bash 执行：`#!/bin/bash`（而非 `#!/bin/sh`）。
+   - 避免使用 bash 专属语法，改用 sh 标准语法（如 `[ ]` 替代 `[[ ]]`）。
+
+2. **如何将 Ubuntu 的/bin/sh指向 bash？**
+   部分场景下（如需要兼容旧脚本），可手动切换：
+
+   ```bash
+   sudo dpkg-reconfigure dash  # 选择 "否"，将/bin/sh指向bash
+   ```
+
+   
+
+### 总结
+
+- `shell` 是命令解释器的统称，是用户与内核的接口。
+- `bash` 是功能强大的 shell，适合用户交互和复杂脚本，是大多数 Linux 的默认登录 shell。
+- `dash` 是轻量高效的 shell，适合快速执行系统脚本，在 Ubuntu 中默认作为 `/bin/sh` 存在。
+- 编写脚本时，需注意声明正确的解释器（`#!/bin/bash` 或 `#!/bin/sh`），避免语法兼容性问题
