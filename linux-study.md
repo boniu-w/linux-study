@@ -47,10 +47,10 @@ CI/CD: Continuous Integration/Continuous Delivery (or Deployment)
 | netstat                                                      | 查端口号                                                     |                                                              |
 | netstat -tunlp                                               | 用于显示tcp udp的端口和进程情况, 详见下方命令解释            |                                                              |
 | netstat -tunlp\|grep 端口号                                  | 查看端口号的占用进程                                         | netstat -tunlp\|grep 8080                                    |
-| firewall-cmd --zone=public  --list-ports                     | 查看已经对外开放的端口                                       |                                                              |
-| firewall-cmd --zone=public --add-port=8080/tcp --permanent   | 添加开放对外的端口(8080)                                     |                                                              |
-| firewall-cmd --reload                                        | 重新载入一下防火墙设置，使设置生效                           |                                                              |
-| firewall-cmd --zone=public --query-port=2228/tcp             | 通过命令查看是否生效                                         |                                                              |
+| sudo firewall-cmd --zone=public  --list-ports                | 查看已经对外开放的端口                                       |                                                              |
+| sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent | 添加开放对外的端口(8080)                                     |                                                              |
+| sudo firewall-cmd --reload                                   | 重新载入一下防火墙设置，使设置生效                           |                                                              |
+| sudo firewall-cmd --zone=public --query-port=2228/tcp        | 通过命令查看是否生效                                         |                                                              |
 | firewall-cmd --zone= public--remove-port=80/tcp --permanent  | 删除端口配置                                                 |                                                              |
 | firewall-cmd --zone=public --add-port=100-500/tcp --permanent | 批量开放100-500之间的端口                                    |                                                              |
 | firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="192.168.0.200" port protocol="tcp" port="80" reject" | 限制IP为192.168.0.200的地址禁止访问80端口, 如未生效可编辑文件, vi /etc/firewalld/zones/public.xml |                                                              |
@@ -2392,3 +2392,74 @@ ls -l /bin/sh  # 输出通常为 lrwxrwxrwx 1 root root 4 ... /bin/sh -> dash
 - `bash` 是功能强大的 shell，适合用户交互和复杂脚本，是大多数 Linux 的默认登录 shell。
 - `dash` 是轻量高效的 shell，适合快速执行系统脚本，在 Ubuntu 中默认作为 `/bin/sh` 存在。
 - 编写脚本时，需注意声明正确的解释器（`#!/bin/bash` 或 `#!/bin/sh`），避免语法兼容性问题
+
+
+
+# 24. centos10
+
+## 1. low disk space on boot
+
+```bash
+df -h 
+ls -lh /boot
+sudo dnf remove $(dnf repoquery --installonly --latest-limit=-2 -q)
+```
+
+
+
+## 2. 更新
+
+```bash
+# 1. 看哪些需要更新
+dnf check-update
+# 2. 指定更新具体程序
+dnf update nginx
+# 3. 忽略内核
+dnf update --exclude=kernel*
+```
+
+
+
+## 3. java
+
+```bash
+# 用系统自带的工具查询并切换java版本
+sudo alternatives --config java
+# 1. 强制刷新所有元数据
+sudo dnf clean all
+sudo dnf makecache
+
+# 2. 列出所有可用的 Java 相关包（确认包名是否有细微变化）
+sudo dnf list available | grep openjdk
+
+
+# 手动下载17 8, 因为目前列表中没有
+# 创建存放目录
+sudo mkdir -p /usr/lib/jvm
+
+# 下载 Java 17 (Linux x64)
+sudo wget https://mirrors.tuna.tsinghua.edu.cn/Adoptium/17/jdk/x64/linux/OpenJDK17U-jdk_x64_linux_hotspot_17.0.18_8.tar.gz
+# 下载 Java 8 (Linux x64)
+sudo wget https://mirrors.tuna.tsinghua.edu.cn/Adoptium/8/jdk/x64/linux/OpenJDK8U-jdk_x64_linux_hotspot_8u482b08.tar.gz
+
+# 解压 Java 17
+sudo tar -zxf OpenJDK17U-jdk_x64_linux_hotspot_17.0.18_8.tar.gz -C /usr/lib/jvm/
+# 解压 Java 8
+sudo tar -zxf OpenJDK8U-jdk_x64_linux_hotspot_8u482b08.tar.gz -C /usr/lib/jvm/
+
+# 注册 Java 17 (假设解压文件夹名为 jdk-17.0.10)
+sudo alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-17.0.18+8/bin/java 1700
+sudo alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk-17.0.18+8/bin/javac 1700
+
+# 注册 Java 8 (假设解压文件夹名为 jdk1.8.0_202)
+sudo alternatives --install /usr/bin/java java /usr/lib/jvm/jdk8u482-b08/bin/java 1080
+sudo alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk8u482-b08/bin/javac 1080
+```
+
+
+
+```bash
+# -cp 代表 classpath，后面跟着 jar 包和要执行的全限定类名
+java -cp target/my-app-1.0-SNAPSHOT.jar com.example.App
+```
+
